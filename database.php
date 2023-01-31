@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+session_start();
+
+
 $db = connectDb('root','','first_blog_kc');
 
 
@@ -17,7 +22,7 @@ function connectDb(string $user, string $pass, string $db, string $host = 'local
     }
 }
 
-
+//voor posts te tonen homepage
 function getPost(PDO $db): array {
 
     $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL');
@@ -25,7 +30,27 @@ function getPost(PDO $db): array {
 
 }
 
+function checkEmailExists(PDO $db, string $email) : array {
+           
+    $res = $db->prepare('SELECT * FROM users WHERE email = :email');
+    $res->bindParam(':email', $email);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
 
+    $user = $res->fetch();
+
+    return $user;
+}
+
+//sessie id in db stoppen
+function updateSessionId(PDO $db, string $userSessionId, string $email) : void {
+
+    $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
+    $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
+    $updateUserSessionIdStatement->bindParam(':email', $email);
+    $updateUserSessionIdStatement->execute();
+
+}
 
 
 
