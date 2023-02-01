@@ -30,7 +30,7 @@ function getPost(PDO $db): array {
 
 }
 
-function checkEmailExists(PDO $db, string $email) : array {
+function checkEmailExists(PDO $db, string $email): array {
            
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
     $res->bindParam(':email', $email);
@@ -39,11 +39,16 @@ function checkEmailExists(PDO $db, string $email) : array {
 
     $user = $res->fetch();
 
+    //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
+    if(!$user) {
+        $user = [];
+    }
+
     return $user;
 }
 
 //sessie id in db stoppen
-function updateSessionId(PDO $db, string $userSessionId, string $email) : void {
+function updateSessionId(PDO $db, string $userSessionId, string $email): void {
 
     $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
     $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
@@ -53,6 +58,17 @@ function updateSessionId(PDO $db, string $userSessionId, string $email) : void {
 }
 
 
+//voeg user toe die zich heeft geregistreerd
+function addNewUser($db, string $email, string $password): void {
+
+    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $addUserStatement = $db->prepare('INSERT INTO users SET email = :email, hash = :password');
+    $addUserStatement->bindParam(':email', $email);
+    $addUserStatement->bindParam(':password', $hashPassword);
+    $addUserStatement->execute();
+
+}
 
 
 ?>
