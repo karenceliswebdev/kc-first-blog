@@ -5,6 +5,9 @@ declare(strict_types=1);
 include './database.php';
 include './functions.php';
 
+//checken sessie nog geldig anders redirect to login page
+checkSessionStillExists($db);
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $num = ($_POST['postId']);
@@ -30,10 +33,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    <!--nav-->
    <ul>
-        <li><a href="./own_posts.php">your posts</a></li>
+        <li><a href="./user_posts.php">your posts</a></li>
         <li><a href="./liked_posts.php">liked posts</a></li>
         <li><a href="./login.php">log out</a></li>
     </ul>
+
+    <!--edit possibility-->
+    <form action="./edit_user_post.php" method="post">
+        <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
+        <button>Edit</button>
+    </form>
 
     <!--post-->
     <div class="post">
