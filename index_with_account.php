@@ -31,13 +31,18 @@ $posts = getPost($db);
 
     <h1>Recent posts</h1>
 
-     <!--recent posts (6)-->
-     <div class="recentPosts">
+    <!--recent posts (6)-->
+    <div class="recentPosts">
         <?php if(!(count($posts) === 0)) : ?>
             <?php foreach($posts as $posts) : ?>
                 <h2><?= $posts['title']; ?></h2>
                 <img src="./pictures/pic_default.png" alt="">
-                <p><?= readMore($posts['body'], $posts['id']); ?></p>
+                <p><?= readMore($posts['body']); ?></p>
+
+                <form action="./blog_detail.php" method="post">
+                    <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
+                    <button>Read More</button>
+                </form>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
