@@ -1,17 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +10,7 @@
 
     <h1>registreer u</h1>
     
-    <form method="post" action="./sign_up_action_page.php">
+    <form method="post" action="./sign_up_action.php">
         <label>email</label><br>
         <input type="text" name ="email" id="email"></input><br>
 

@@ -1,5 +1,8 @@
 <?php
+
 declare(strict_types=1);
+
+
 //doel 1 hoop blogposts maken en deze weergeven op homepage
 
 include './database.php';
