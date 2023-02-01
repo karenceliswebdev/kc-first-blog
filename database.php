@@ -30,6 +30,16 @@ function getPost(PDO $db): array {
 
 }
 
+function getPostDetailPage(PDO $db, int $postId): array {
+    
+    $res = $db->prepare('SELECT * FROM posts WHERE id = :postId');
+    $res->bindParam(':postId', $postId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $res->fetch();
+}
+
 function checkEmailExists(PDO $db, string $email): array {
            
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
@@ -59,7 +69,7 @@ function updateSessionId(PDO $db, string $userSessionId, string $email): void {
 
 
 //voeg user toe die zich heeft geregistreerd
-function addNewUser($db, string $email, string $password): void {
+function addNewUser(PDO $db, string $email, string $password): void {
 
     $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -69,6 +79,8 @@ function addNewUser($db, string $email, string $password): void {
     $addUserStatement->execute();
 
 }
+
+
 
 
 ?>
