@@ -40,6 +40,18 @@ function getPostDetailPage(PDO $db, int $postId): array {
     return $res->fetch();
 }
 
+function getAllPostsFromUser(PDO $db, int $userId): array {
+    
+    $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId');
+    $res->bindParam(':userId', $userId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $res->fetchAll();
+}
+
+
+
 function checkEmailExists(PDO $db, string $email): array {
            
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
@@ -67,6 +79,22 @@ function updateSessionId(PDO $db, string $userSessionId, string $email): void {
 
 }
 
+function checkSessionStillExists(PDO $db): void {
+
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_COOKIE['auth']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $user = $res->fetch();
+
+    if(!$user) {
+
+        header('Location: ./login.php');
+        die;
+    }
+
+}
 
 //voeg user toe die zich heeft geregistreerd
 function addNewUser(PDO $db, string $email, string $password): void {
