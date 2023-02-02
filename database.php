@@ -59,6 +59,18 @@ function getAllPostsFromUser(PDO $db): array {
     return $res->fetchAll();
 }
 
+function updatePost($db, string $title, string $body, int $postId): void {
+    
+    $now = date('Y-m-d H:i:s');
+
+    $updatePostStatement = $db->prepare('UPDATE posts SET title = :title, body = :body, updated_at = :now WHERE id = :postId');
+    $updatePostStatement->bindParam(':title', $title);
+    $updatePostStatement->bindParam(':body', $body);
+    $updatePostStatement->bindParam(':postId', $postId);
+    $updatePostStatement->bindParam(':now', $now);
+    $updatePostStatement->execute();
+
+}
 
 function checkEmailExists(PDO $db, string $email): array {
            
