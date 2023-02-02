@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 include './database.php';
-include './functions.php';
 
 //checken sessie nog geldig anders redirect to login page
 checkSessionStillExists($db);
@@ -47,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!--edit possibility-->
     <?php if($post['user_id']===$user['id']) : ?>
         <form action="./edit_post.php" method="post">
-            <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
+            <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
             <button>Edit</button>
         </form>
     <?php endif; ?>
