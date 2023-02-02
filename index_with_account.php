@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-
 //doel 1 hoop blogposts maken en deze weergeven op homepage
 
 include './database.php';
 include './functions.php';
+
+//checken sessie nog geldig anders redirect to login page
+checkSessionStillExists($db);
 
 $posts = getPost($db);
 
@@ -24,7 +26,7 @@ $posts = getPost($db);
 
     <!--nav-->
     <ul>
-        <li><a href="./own_posts.php">your posts</a></li>
+        <li><a href="./user_posts.php">your posts</a></li>
         <li><a href="./liked_posts.php">liked posts</a></li>
         <li><a href="./login.php">log out</a></li>
     </ul>
@@ -39,7 +41,7 @@ $posts = getPost($db);
                 <img src="./pictures/pic_default.png" alt="">
                 <p><?= readMore($posts['body']); ?></p>
 
-                <form action="./blog_detail.php" method="post">
+                <form action="./blog_detail_with_account.php" method="post">
                     <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
                     <button>Read More</button>
                 </form>

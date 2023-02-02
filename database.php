@@ -25,7 +25,7 @@ function connectDb(string $user, string $pass, string $db, string $host = 'local
 //voor posts te tonen homepage
 function getPost(PDO $db): array {
 
-    $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL');
+    $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
     return $res->fetchAll(); 
 
 }
@@ -40,16 +40,24 @@ function getPostDetailPage(PDO $db, int $postId): array {
     return $res->fetch();
 }
 
-function getAllPostsFromUser(PDO $db, int $userId): array {
+function getAllPostsFromUser(PDO $db): array {
     
+    //eerst user id vinden via session id
+    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId ORDER BY created_at DESC;');
+    $selectUser->bindParam(':sessionId', $_COOKIE['auth']);
+    $selectUser->setFetchMode(PDO::FETCH_ASSOC);
+    $selectUser->execute();
+
+    $user = $selectUser->fetch();
+
+    //dan alle posts selecteren die deze user_id hebben
     $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId');
-    $res->bindParam(':userId', $userId);
+    $res->bindParam(':userId', $user['id']);
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 
     return $res->fetchAll();
 }
-
 
 
 function checkEmailExists(PDO $db, string $email): array {
@@ -108,6 +116,26 @@ function addNewUser(PDO $db, string $email, string $password): void {
 
 }
 
+//zoek eerst user via sessie id (cookie) in db dan voeg je die mee in de query
+function addNewPost(PDO $db, string $title, string $content): void {
+
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_COOKIE['auth']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $user = $res->fetch();
+
+    $now = date('Y-m-d H:i:s');
+
+    $addPostStatement = $db->prepare('INSERT INTO posts SET user_id = :userId, title = :title, body = :content, created_at= :now');
+    $addPostStatement->bindParam(':userId', $user['id']);
+    $addPostStatement->bindParam(':title', $title);
+    $addPostStatement->bindParam(':content', $content);
+    $addPostStatement->bindParam(':now', $now);
+    $addPostStatement->execute();
+
+}
 
 
 

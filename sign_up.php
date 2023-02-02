@@ -8,16 +8,16 @@
 </head>
 <body>
 
-    <h1>registreer u</h1>
+    <h1>Sign up</h1>
     
     <form method="post" action="./sign_up_action.php">
         <label>email</label><br>
         <input type="text" name ="email" id="email"></input><br>
 
-        <label for="password">paswoord</label><br>
+        <label for="password">password</label><br>
         <input type="password" name ="password" id="password"></input><br>
 
-        <button>registreer</button>
+        <button>sign up</button>
     </form>
 
 </body>

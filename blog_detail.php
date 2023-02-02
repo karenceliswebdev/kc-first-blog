@@ -27,12 +27,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
+
     <!--nav-->
     <ul>
         <li><a href="./login.php">log in</a></li>
     </ul>
 
-    <!--recent posts (6)-->
+    <!--post-->
     <div class="post">
         <h2><?= $post['title']; ?></h2>
         <img src="./pictures/pic_default.png" alt="">

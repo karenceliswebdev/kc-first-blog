@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+session_start();
 
 
 ?>
@@ -14,19 +17,19 @@
 </head>
 <body>
 
-    <h1>Log in</h1>
+    <h1>Login</h1>
 
-    <form method="post" action="./login_action_page.php">
+    <form method="post" action="./login_action.php">
         <label>email</label><br>
         <input type="text" name ="email" id="email"></input><br>
 
-        <label for="password">paswoord</label><br>
+        <label for="password">password</label><br>
         <input type="password" name ="password" id="password"></input><br>
 
         <button>login</button>
     </form>
 
-    <p><a href="./sign_up.php">registreer</a></p>
+    <p><a href="./sign_up.php">sign up</a></p>
 
 </body>
 </html>

@@ -13,7 +13,7 @@ include './functions.php';
 //checken sessie nog geldig anders redirect to login page
 checkSessionStillExists($db);
 
-$posts = getAllPostsFromUser($db, $userId);
+$posts = getAllPostsFromUser($db);
 
 ?>
 
@@ -33,16 +33,17 @@ $posts = getAllPostsFromUser($db, $userId);
         <li><a href="./login.php">log in</a></li>
     </ul>
 
+    <a href="./add_post.php"><button>Add post</button></a>
+
     <!--recent posts (6)-->
-     <!--recent posts (6)-->
-     <div class="allUserPosts">
+    <div class="allUserPosts">
         <?php if(!(count($posts) === 0)) : ?>
             <?php foreach($posts as $posts) : ?>
                 <h2><?= $posts['title']; ?></h2>
                 <img src="./pictures/pic_default.png" alt="">
                 <p><?= readMore($posts['body']); ?></p>
 
-                <form action="./blog_detail.php" method="post">
+                <form action="./blog_detail_with_account.php" method="post">
                     <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
                     <button>Read More</button>
                 </form>

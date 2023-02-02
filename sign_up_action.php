@@ -29,7 +29,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ./sign_up.php');
         die;
     }
-       
+      
+    //hash password
+
+    
+
     //bestaat niet dus kun je hem in db stoppen
 
     addNewUser($db, $_POST['email'], $_POST['password']);
