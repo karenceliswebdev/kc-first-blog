@@ -12,7 +12,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $num = ($_POST['postId']);
     
+    //postId doorgekregen na tik readmore button
     $post = getPostDetailPage($db, (int)$num);
+
+    //nu even checken sessie id uit cookie en naam user slaan we op en vergelijken met naam user postid van readmore
+    $user = getUser($db);
+
+    //dan aanpassingen updaten
 }
 
 
@@ -39,10 +45,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     </ul>
 
     <!--edit possibility-->
-    <form action="./edit_user_post.php" method="post">
-        <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
-        <button>Edit</button>
-    </form>
+    <?php if($post['user_id']===$user['id']) : ?>
+        <form action="./edit_post.php" method="post">
+            <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
+            <button>Edit</button>
+        </form>
+    <?php endif; ?>
 
     <!--post-->
     <div class="post">
