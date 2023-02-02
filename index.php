@@ -8,7 +8,7 @@ declare(strict_types=1);
 include './database.php';
 include './functions.php';
 
-$posts = getPost($db);
+$posts = getPosts($db);
 
 ?>
 

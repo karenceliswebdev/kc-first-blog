@@ -10,7 +10,7 @@ include './functions.php';
 //checken sessie nog geldig anders redirect to login page
 checkSessionStillExists($db);
 
-$posts = getPost($db);
+$posts = getPosts($db);
 
 ?>
 

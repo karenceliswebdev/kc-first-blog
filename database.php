@@ -23,7 +23,7 @@ function connectDb(string $user, string $pass, string $db, string $host = 'local
 }
 
 //voor posts te tonen homepage
-function getPost(PDO $db): array {
+function getPosts(PDO $db): array {
 
     $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
     return $res->fetchAll(); 
