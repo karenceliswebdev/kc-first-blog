@@ -43,7 +43,7 @@ function getPostDetailPage(PDO $db, int $postId): array {
 function getAllPostsFromUser(PDO $db): array {
     
     //eerst user id vinden via session id
-    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId ORDER BY created_at DESC;');
+    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
     $selectUser->bindParam(':sessionId', $_COOKIE['auth']);
     $selectUser->setFetchMode(PDO::FETCH_ASSOC);
     $selectUser->execute();
@@ -51,7 +51,7 @@ function getAllPostsFromUser(PDO $db): array {
     $user = $selectUser->fetch();
 
     //dan alle posts selecteren die deze user_id hebben
-    $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId');
+    $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId ORDER BY created_at DESC;');
     $res->bindParam(':userId', $user['id']);
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
