@@ -104,6 +104,17 @@ function checkSessionStillExists(PDO $db): void {
 
 }
 
+//vind user via session id
+function getUser(PDO $db): array {
+
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_COOKIE['auth']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $res->fetch();    
+}
+
 //voeg user toe die zich heeft geregistreerd
 function addNewUser(PDO $db, string $email, string $password): void {
 
