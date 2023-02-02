@@ -30,7 +30,7 @@ $posts = getAllPostsFromUser($db);
 
     <!--nav-->
     <ul>
-        <li><a href="./login.php">log in</a></li>
+        <li><a href="./login.php">log out</a></li>
     </ul>
 
     <a href="./add_post.php"><button>Add post</button></a>
