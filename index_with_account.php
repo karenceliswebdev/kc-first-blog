@@ -8,7 +8,15 @@ include './database.php';
 include './functions.php';
 
 //checken sessie nog geldig anders redirect to login page
-checkSessionStillExists($db);
+
+$user = checkSessionStillExists($db);
+
+if($user===false) {
+
+    header('Location: ./login.php');
+    die;
+
+}
 
 $posts = getPosts($db);
 
