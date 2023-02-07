@@ -93,7 +93,6 @@ function addNewPost(PDO $db, string $title, string $content): void {
 
 }
 
-
 function checkEmailExists(PDO $db, string $email): bool {
            
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
@@ -184,6 +183,66 @@ function addNewUser(PDO $db, string $email, string $password): void {
 
 }
 
+function checkUserLikedPost(PDO $db, int $postId): bool {
+
+    $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $getUserStatement->bindParam(':sessionId', $_COOKIE['auth']);
+    $getUserStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $getUserStatement->execute();
+
+    $user = $getUserStatement->fetch();
+
+    $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId AND post_id = :postId');
+    $res->bindParam(':userId', $user['id']);
+    $res->bindParam(':postId', $postId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $like = $res->fetch();
+
+    if($like) {
+
+        return true;
+        die;
+    }
+
+    return false;
+}
+
+function addLikePost(PDO $db, int $postId): void {
+    
+    $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $getUserStatement->bindParam(':sessionId', $_COOKIE['auth']);
+    $getUserStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $getUserStatement->execute();
+
+    $user = $getUserStatement->fetch();
+
+    $res = $db->prepare('INSERT INTO likes SET user_id = :userId, post_id = :postId');
+    $res->bindParam(':userId', $user['id']);
+    $res->bindParam(':postId', $postId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+}
+
+function deleteLikePost(PDO $db, int $postId): void {
+    
+    $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $getUserStatement->bindParam(':sessionId', $_COOKIE['auth']);
+    $getUserStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $getUserStatement->execute();
+
+    $user = $getUserStatement->fetch();
+
+    //
+
+    $res = $db->prepare('DELETE FROM likes WHERE user_id = :userId AND post_id = :postId');
+    $res->bindParam(':userId', $user['id']);
+    $res->bindParam(':postId', $postId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+}
 
 
 
