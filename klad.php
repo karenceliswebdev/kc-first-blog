@@ -1,6 +1,5 @@
 <?php
 
-
 $arrayFalse = [];
 
 if($arrayFalse){
@@ -28,9 +27,7 @@ else{
 //krijg true
 
 
-
 $db = connectDb('root','','first_blog_kc');
-
 
 function connectDb(string $user, string $pass, string $db, string $host = 'localhost'): PDO {
    
@@ -57,5 +54,18 @@ $user = $res->fetch();    //false als leeg anders array terug
 
 echo $user;
 
+//test like icon:
+
+$test = true;
+
+if($test) {
+
+    $path = './pictures/heart-empty.svg';
+}
 
 ?>
+
+<button style="height:50px; width:50px;">
+<img src = "<?php echo $path; ?>" alt="heart">    <!--echo-->       
+</button>
+
