@@ -16,19 +16,18 @@ if($user===false) {
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $num = ($_POST['postId']);
-    
-    //postId doorgekregen na tik readmore button
-    $post = getPostDetailPage($db, (int)$num);
+    $_SESSION['postId'] = $_POST['postId'];
 
-    //nu even checken sessie id uit cookie en naam user slaan we op en vergelijken met naam user postid van readmore
-    $user = getUser($db);
-
-    //dan aanpassingen updaten
 }
 
+//postId doorgekregen na tik readmore button
+$post = getPostDetailPage($db, (int)$_SESSION['postId']);
 
-//doel 1 hoop blogposts maken en deze weergeven op homepage
+//nu even checken sessie id uit cookie en naam user slaan we op en vergelijken met naam user postid van readmore
+$user = getUser($db);
+
+//check user post geliked heeft
+$userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
 ?>
 
@@ -66,12 +65,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!--like-->
-        <form action="./functions.php" method="post">
-            <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
-            <button style="height:50px; width:50px;">
-                <img src = "<?= empty($like['user_id']) ? './pictures/heart-empty.svg' : './pictures/heart-full.svg'; ?>" alt="heart">            
-            </button>
-        </form>
+    <form action="./like_action.php" method="post">
+        <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+        <button style="height:50px; width:50px;">
+            <img src = "<?= $userLikedPost ? './pictures/heart-full.svg' : './pictures/heart-empty.svg'; ?>" alt="heart">            
+        </button>
+    </form>
 
 </body>
 </html>
