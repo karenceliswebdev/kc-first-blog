@@ -40,7 +40,7 @@ checkSessionStillExists($db);
         </div>
     </form>
     
-    <a href=""><button>cancel</button></a>   
+    <a href="./user_posts.php"><button>cancel</button></a>   
 
 </body>
 </html>

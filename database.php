@@ -72,73 +72,6 @@ function updatePost($db, string $title, string $body, int $postId): void {
 
 }
 
-function checkEmailExists(PDO $db, string $email): array {
-           
-    $res = $db->prepare('SELECT * FROM users WHERE email = :email');
-    $res->bindParam(':email', $email);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-
-    $user = $res->fetch();
-
-    //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
-    if(!$user) {
-        $user = [];
-    }
-
-    return $user;
-}
-
-//sessie id in db stoppen
-function updateSessionId(PDO $db, string $userSessionId, string $email): void {
-
-    $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
-    $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
-    $updateUserSessionIdStatement->bindParam(':email', $email);
-    $updateUserSessionIdStatement->execute();
-
-}
-
-function checkSessionStillExists(PDO $db): void {
-
-    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
-    $res->bindParam(':sessionId', $_COOKIE['auth']);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-
-    $user = $res->fetch();
-
-    if(!$user) {
-
-        header('Location: ./login.php');
-        die;
-    }
-
-}
-
-//vind user via session id
-function getUser(PDO $db): array {
-
-    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
-    $res->bindParam(':sessionId', $_COOKIE['auth']);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-
-    return $res->fetch();    
-}
-
-//voeg user toe die zich heeft geregistreerd
-function addNewUser(PDO $db, string $email, string $password): void {
-
-    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    $addUserStatement = $db->prepare('INSERT INTO users SET email = :email, hash = :password');
-    $addUserStatement->bindParam(':email', $email);
-    $addUserStatement->bindParam(':password', $hashPassword);
-    $addUserStatement->execute();
-
-}
-
 //zoek eerst user via sessie id (cookie) in db dan voeg je die mee in de query
 function addNewPost(PDO $db, string $title, string $content): void {
 
@@ -159,6 +92,98 @@ function addNewPost(PDO $db, string $title, string $content): void {
     $addPostStatement->execute();
 
 }
+
+
+function checkEmailExists(PDO $db, string $email): bool {
+           
+    $res = $db->prepare('SELECT * FROM users WHERE email = :email');
+    $res->bindParam(':email', $email);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $user = $res->fetch();
+
+    //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
+    if($user) {
+        
+        return true;
+        die;
+    }
+
+    return false;
+}
+
+//sessie id in db stoppen
+function updateSessionId(PDO $db, string $userSessionId, string $email): void {
+
+    $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
+    $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
+    $updateUserSessionIdStatement->bindParam(':email', $email);
+    $updateUserSessionIdStatement->execute();
+
+}
+
+function checkSessionStillExists(PDO $db): bool {
+
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_COOKIE['auth']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $user = $res->fetch();
+
+    if($user) {
+
+        return true;
+        die;
+    }
+
+    return false;
+
+}
+
+//check hash (input pp) = db hash
+function checkUserPasswordCorrect($db, string $email, string $password): bool {
+
+    $res = $db->prepare('SELECT * FROM users WHERE email = :email');
+    $res->bindParam(':email', $email);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    $user = $res->fetch();
+
+    if(!password_verify($password, $user['hash'])) {
+        
+        return false;
+        die;
+    }
+
+    return true;
+}
+
+//vind user via session id
+function getUser(PDO $db): array {
+
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_COOKIE['auth']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $user = $res->fetch();    
+}
+
+//voeg user toe die zich heeft geregistreerd
+function addNewUser(PDO $db, string $email, string $password): void {
+
+    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $addUserStatement = $db->prepare('INSERT INTO users SET email = :email, hash = :password');
+    $addUserStatement->bindParam(':email', $email);
+    $addUserStatement->bindParam(':password', $hashPassword);
+    $addUserStatement->execute();
+
+}
+
 
 
 

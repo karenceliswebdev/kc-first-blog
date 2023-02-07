@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['title'])) {
 
+        //gaat die nog weten welke post ik edit
         header('Location: ./add_post.php');
         die;
     }
