@@ -66,11 +66,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!--like-->
-        toon full header_register_callbackelse leeg hart met button 
         <form action="./functions.php" method="post">
             <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
-            <button>
-                <img src = <?php (empty($like['user_id'])) ? 'heart-empty.svg' : 'heart-full.svg'; ?> alt="heart"/>            
+            <button style="height:50px; width:50px;">
+                <img src = "<?= empty($like['user_id']) ? './pictures/heart-empty.svg' : './pictures/heart-full.svg'; ?>" alt="heart">            
             </button>
         </form>
 
