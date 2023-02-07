@@ -5,7 +5,14 @@ declare(strict_types=1);
 include './database.php';
 
 //checken sessie nog geldig anders redirect to login page
-checkSessionStillExists($db);
+$user = checkSessionExists($db);
+
+if($user===false) {
+
+    header('Location: ./login.php');
+    die;
+
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -57,6 +64,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="./pictures/pic_default.png" alt="">
         <p><?= $post['body']; ?></p>     
     </div>
+
+    <!--like-->
+        toon full header_register_callbackelse leeg hart met button 
+        <form action="./functions.php" method="post">
+            <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+            <button>
+                <img src = <?php (empty($like['user_id'])) ? 'heart-empty.svg' : 'heart-full.svg'; ?> alt="heart"/>            
+            </button>
+        </form>
 
 </body>
 </html>

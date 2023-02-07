@@ -123,7 +123,7 @@ function updateSessionId(PDO $db, string $userSessionId, string $email): void {
 
 }
 
-function checkSessionStillExists(PDO $db): bool {
+function checkSessionExists(PDO $db): bool {
 
     $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
     $res->bindParam(':sessionId', $_COOKIE['auth']);

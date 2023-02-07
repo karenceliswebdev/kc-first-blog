@@ -20,7 +20,7 @@ session_start();
     <h1>Login</h1>
 
     <form method="post" action="./login_action.php">
-        <label>email</label><br>
+        <label for="email">email</label><br>
         <input type="text" name ="email" id="email"></input><br>
 
         <label for="password">password</label><br>

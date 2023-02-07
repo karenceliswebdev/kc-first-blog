@@ -11,7 +11,14 @@ include './functions.php';
 //all auth cookie gemaakt?
 
 //checken sessie nog geldig anders redirect to login page
-checkSessionStillExists($db);
+$user = checkSessionExists($db);
+
+if($user===false) {
+
+    header('Location: ./login.php');
+    die;
+
+}
 
 $posts = getAllPostsFromUser($db);
 

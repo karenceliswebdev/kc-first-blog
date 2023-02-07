@@ -9,7 +9,7 @@ include './functions.php';
 
 //checken sessie nog geldig anders redirect to login page
 
-$user = checkSessionStillExists($db);
+$user = checkSessionExists($db);
 
 if($user===false) {
 

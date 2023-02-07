@@ -31,9 +31,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
       
     //hash password
-
-    
-
+ 
     //bestaat niet dus kun je hem in db stoppen
 
     addNewUser($db, $_POST['email'], $_POST['password']);
