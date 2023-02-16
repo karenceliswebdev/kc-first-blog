@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 //doel 1 hoop blogposts maken en deze weergeven op homepage
 
 include './database.php';
@@ -33,7 +32,7 @@ $sessionExist = checkSessionExists($db);
         <?php if($sessionExist===true) : ?>
             <li><a href="./user_posts.php">your posts</a></li>
             <li><a href="./liked_posts.php">liked posts</a></li>
-            <li><a href="./login.php">log out</a></li>
+            <li><a href="./logout.php">log out</a></li>
         <?php endif; ?>
     </ul>
 
