@@ -5,29 +5,21 @@ declare(strict_types=1);
 include './database.php';
 
 //checken sessie nog geldig anders redirect to login page
-$user = checkSessionExists($db);
-
-if($user===false) {
-
-    header('Location: ./login.php');
-    die;
-
-}
+$sessionExist = checkSessionExists($db);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
         
-        header('Location: ./add_post.php');
+        header('Location: ./blog_detail.php');
         die;
     }
 
     //postID nodig voor te zien welke post we moeten aanpassen
-    $num = ($_POST['postId']);
-
-    $post = getPostDetailPage($db, (int)$num);
- 
+    $_SESSION['postId'] = $_POST['postId'];
 }
+
+$post = getPostDetailPage($db, (int)$_SESSION['postId']);
 
 //ge gaat array ophalen in vb steken van post rij en dan array[titel], pic en content in inputvelden steken 
 ?>
@@ -41,6 +33,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Document</title>
 </head>
 <body>
+
+    <!--nav-->
+    <ul>
+        <?php if($sessionExist===false) : ?>
+            <li><a href="./login.php">log in</a></li>
+        <?php endif; ?>
+
+        <?php if($sessionExist===true) : ?>
+            <li><a href="./user_posts.php">your posts</a></li>
+            <li><a href="./liked_posts.php">liked posts</a></li>
+            <li><a href="./login.php">log out</a></li>
+        <?php endif; ?>
+    </ul>
 
     <form method="post" action="./edit_post_action.php">
         <div class="newPost">
@@ -58,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </form>
     
-    <form action="./blog_detail_with_account.php" method="post">
+    <form action="./blog_detail.php" method="post">
         <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
         <button>cancel</button>
     </form>
