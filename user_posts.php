@@ -11,14 +11,7 @@ include './functions.php';
 //all auth cookie gemaakt?
 
 //checken sessie nog geldig anders redirect to login page
-$user = checkSessionExists($db);
-
-if($user===false) {
-
-    header('Location: ./login.php');
-    die;
-
-}
+$sessionExist = checkSessionExists($db);
 
 $posts = getAllPostsFromUser($db);
 
@@ -34,13 +27,22 @@ $posts = getAllPostsFromUser($db);
 </head>
 <body>
 
-
     <!--nav-->
-    <ul>
-        <li><a href="./login.php">log out</a></li>
-    </ul>
+    <?php if($sessionExist===false) : ?>
+        <ul>
+            <li><a href="./login.php">log in</a></li>
+        </ul>
+    <?php endif; ?>
 
-    <a href="./add_post.php"><button>Add post</button></a>
+    <?php if($sessionExist===true) : ?>
+        <ul>
+            <li><a href="./user_posts.php">your posts</a></li>
+            <li><a href="./liked_posts.php">liked posts</a></li>
+            <li><a href="./logout.php">log out</a></li>
+        </ul>
+        <a href="./add_post.php"><button>Add post</button></a>
+    <?php endif; ?>
+    
 
     <!--recent posts (6)-->
     <div class="allUserPosts">
@@ -50,7 +52,7 @@ $posts = getAllPostsFromUser($db);
                 <img src="./pictures/pic_default.png" alt="">
                 <p><?= readMore($posts['body']); ?></p>
 
-                <form action="./blog_detail_with_account.php" method="post">
+                <form action="./blog_detail.php" method="post">
                     <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
                     <button>Read More</button>
                 </form>
