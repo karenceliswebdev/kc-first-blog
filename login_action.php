@@ -59,8 +59,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     //in cookie stoppen
     setcookie('auth', $userSessionId, time() + 3600, '', '', true);
 
-    //Redirect to page met gebruiker naam in hoek
-    header('Location: ./index_with_account.php');
+    //Redirect to page met gebruiker naam in hoek (changed index)
+    header('Location: ./index.php');
 
 }
 
