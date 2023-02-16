@@ -2,35 +2,38 @@
 
 include './database.php';
 
-$num = $_POST['postId'];
+if($sessionExist===false) {
+    //alert maken enkel user kunnen post liken: login cancel button
+    header('Location: ./blog_detail.php');
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
 
-        header('Location: ./blog_detail_with_account.php');
+        header('Location: ./blog_detail.php');
         die;
     }
     
-    $num = $_POST['postId'];
+    $_SESSION['postId'] = $_POST['postId'];
 
     //check user post geliked heeft
-    $userLikedPost = checkUserLikedPost($db, (int)$num);
+    $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
     if($userLikedPost) {
 
         //bestaat -> verwijderen
-        deleteLikePost($db, (int)$num);
+        deleteLikePost($db, (int)$_SESSION['postId']);
 
-        header('Location: ./blog_detail_with_account.php');
+        header('Location: ./blog_detail.php');
         die;
     }   
 
     //niet bestaat -> toevoegen
-    addLikePost($db, (int)$num);   
+    addLikePost($db, (int)$_SESSION['postId']);   
 
     //Redirect to detail page
-    header('Location: ./blog_detail_with_account.php');
+    header('Location: ./blog_detail.php');
 
 }
 
