@@ -23,15 +23,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     //postID nodig voor te zien welke post we moeten aanpassen
-    $num = ($_POST['postId']);
+    $_SESSION['postId'] = ($_POST['postId']);
 
     //voeg post toe
 
-    updatePost($db, $_POST['title'], $_POST['body'], (int)$num);
+    updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
     
-    header('Location: ./user_posts.php');
+    header('Location: ./blog_detail.php');
 
 }
 ?>
