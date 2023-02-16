@@ -61,11 +61,16 @@ function getAllPostsFromUser(PDO $db): array {
 
 function updatePost($db, string $title, string $body, int $postId): void {
     
+// string en title html
+
+    $newTitle = htmlspecialchars($title, ENT_QUOTES);
+    $newBody = htmlspecialchars($body, ENT_QUOTES);
+
     $now = date('Y-m-d H:i:s');
 
     $updatePostStatement = $db->prepare('UPDATE posts SET title = :title, body = :body, updated_at = :now WHERE id = :postId');
-    $updatePostStatement->bindParam(':title', $title);
-    $updatePostStatement->bindParam(':body', $body);
+    $updatePostStatement->bindParam(':title', $newTitle);
+    $updatePostStatement->bindParam(':body', $newBody);
     $updatePostStatement->bindParam(':postId', $postId);
     $updatePostStatement->bindParam(':now', $now);
     $updatePostStatement->execute();
@@ -73,7 +78,10 @@ function updatePost($db, string $title, string $body, int $postId): void {
 }
 
 //zoek eerst user via sessie id (cookie) in db dan voeg je die mee in de query
-function addNewPost(PDO $db, string $title, string $content): void {
+function addNewPost(PDO $db, string $title, string $body): void {
+
+    $newTitle = htmlspecialchars($title, ENT_QUOTES);
+    $newBody = htmlspecialchars($body, ENT_QUOTES);
 
     $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
     $res->bindParam(':sessionId', $_COOKIE['auth']);
@@ -86,8 +94,8 @@ function addNewPost(PDO $db, string $title, string $content): void {
 
     $addPostStatement = $db->prepare('INSERT INTO posts SET user_id = :userId, title = :title, body = :content, created_at= :now');
     $addPostStatement->bindParam(':userId', $user['id']);
-    $addPostStatement->bindParam(':title', $title);
-    $addPostStatement->bindParam(':content', $content);
+    $addPostStatement->bindParam(':title', $newTitle);
+    $addPostStatement->bindParam(':content', $newBody);
     $addPostStatement->bindParam(':now', $now);
     $addPostStatement->execute();
 
@@ -95,8 +103,10 @@ function addNewPost(PDO $db, string $title, string $content): void {
 
 function checkEmailExists(PDO $db, string $email): bool {
            
+    $newEmail = htmlspecialchars($email, ENT_QUOTES);
+
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
-    $res->bindParam(':email', $email);
+    $res->bindParam(':email', $newEmail);
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 
@@ -115,9 +125,11 @@ function checkEmailExists(PDO $db, string $email): bool {
 //sessie id in db stoppen
 function updateSessionId(PDO $db, string $userSessionId, string $email): void {
 
+    $newEmail = htmlspecialchars($email, ENT_QUOTES);
+
     $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
     $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
-    $updateUserSessionIdStatement->bindParam(':email', $email);
+    $updateUserSessionIdStatement->bindParam(':email', $newEmail);
     $updateUserSessionIdStatement->execute();
 
 }
@@ -144,8 +156,10 @@ function checkSessionExists(PDO $db): bool {
 //check hash (input pp) = db hash
 function checkUserPasswordCorrect($db, string $email, string $password): bool {
 
+    $newEmail = htmlspecialchars($email, ENT_QUOTES);
+
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
-    $res->bindParam(':email', $email);
+    $res->bindParam(':email', $newEmail);
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 
@@ -174,10 +188,13 @@ function getUser(PDO $db): array {
 //voeg user toe die zich heeft geregistreerd
 function addNewUser(PDO $db, string $email, string $password): void {
 
-    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+    $newEmail = htmlspecialchars($email, ENT_QUOTES);
+    $newPassword = htmlspecialchars($password, ENT_QUOTES);
+
+    $hashPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
     $addUserStatement = $db->prepare('INSERT INTO users SET email = :email, hash = :password');
-    $addUserStatement->bindParam(':email', $email);
+    $addUserStatement->bindParam(':email', $newEmail);
     $addUserStatement->bindParam(':password', $hashPassword);
     $addUserStatement->execute();
 
