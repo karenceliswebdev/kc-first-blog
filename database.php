@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 session_start();
 
-
 $db = connectDb('root','','first_blog_kc');
-
 
 function connectDb(string $user, string $pass, string $db, string $host = 'localhost'): PDO {
    
@@ -59,8 +57,7 @@ function getAllPostsFromUser(PDO $db): array {
     return $res->fetchAll();
 }
 
-function updatePost($db, string $title, string $body, int $postId): void {
-    
+function updatePost($db, string $title, string $body, int $postId): void {    
 // string en title html
 
     $newTitle = htmlspecialchars($title, ENT_QUOTES);
@@ -123,12 +120,12 @@ function checkEmailExists(PDO $db, string $email): bool {
 }
 
 //sessie id in db stoppen
-function updateSessionId(PDO $db, string $userSessionId, string $email): void {
+function updateSessionId(PDO $db, string $sessionId, string $email): void {
 
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
 
     $updateUserSessionIdStatement = $db->prepare('UPDATE users SET session_id = :sessionId WHERE email = :email');
-    $updateUserSessionIdStatement->bindParam(':sessionId', $userSessionId);
+    $updateUserSessionIdStatement->bindParam(':sessionId', $sessionId);
     $updateUserSessionIdStatement->bindParam(':email', $newEmail);
     $updateUserSessionIdStatement->execute();
 
@@ -157,6 +154,7 @@ function checkSessionExists(PDO $db): bool {
 function checkUserPasswordCorrect($db, string $email, string $password): bool {
 
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
+    $newPassword = htmlspecialchars($password, ENT_QUOTES);
 
     $res = $db->prepare('SELECT * FROM users WHERE email = :email');
     $res->bindParam(':email', $newEmail);
@@ -165,7 +163,7 @@ function checkUserPasswordCorrect($db, string $email, string $password): bool {
 
     $user = $res->fetch();
 
-    if(!password_verify($password, $user['hash'])) {
+    if(!password_verify($newPassword, $user['hash'])) {
         
         return false;
         die;
@@ -245,6 +243,8 @@ function addLikePost(PDO $db, int $postId): void {
 
 function deleteLikePost(PDO $db, int $postId): void {
     
+//doe gwn getuser eerst en sttek mee in parameter
+
     $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
     $getUserStatement->bindParam(':sessionId', $_COOKIE['auth']);
     $getUserStatement->setFetchMode(PDO::FETCH_ASSOC);
@@ -260,7 +260,5 @@ function deleteLikePost(PDO $db, int $postId): void {
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 }
-
-
 
 ?>
