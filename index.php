@@ -10,7 +10,7 @@ include './functions.php';
 
 $posts = getPosts($db);
 
-$user = checkSessionExists($db);
+$sessionExist = checkSessionExists($db);
 
 ?>
 
@@ -26,14 +26,14 @@ $user = checkSessionExists($db);
 
     <!--nav-->
     <ul>
-        <?php if($user===true) : ?>
+        <?php if($sessionExist===false) : ?>
+            <li><a href="./login.php">log in</a></li>
+        <?php endif; ?>
+
+        <?php if($sessionExist===true) : ?>
             <li><a href="./user_posts.php">your posts</a></li>
             <li><a href="./liked_posts.php">liked posts</a></li>
             <li><a href="./login.php">log out</a></li>
-        <?php endif; ?>
-
-        <?php if($user===false) : ?>
-            <li><a href="./login.php">log in</a></li>
         <?php endif; ?>
     </ul>
 
