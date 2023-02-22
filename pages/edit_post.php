@@ -24,6 +24,11 @@ $post = getPostDetailPage($db, (int)$_SESSION['postId']);
 
     <h1>Edit post</h1>
 
+    <?php if(!empty($_SESSION['feedback'])) : ?>
+        <p><?=$_SESSION['feedback']; ?></p>
+        <?php unset($_SESSION['feedback']); ?>
+    <?php endif; ?>
+
     <form method="post" action="../actions/edit_post_action.php">
         <div class="newPost">
             <label for="title">Title:</label><br>
