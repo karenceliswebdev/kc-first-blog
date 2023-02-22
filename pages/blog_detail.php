@@ -47,6 +47,6 @@ if($sessionExist===true) {
         <button style="height:50px; width:50px;">
             <img src = "<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
-    </form>
+        </form>
 
 <?php include "../templates/footer.php"?>
