@@ -5,6 +5,7 @@ include '../helpers/database.php';
 $sessionExist = checkSessionExists($db);
 
 if($sessionExist===false) {
+    $_SESSION['feedback'] = 'Only loged in users can like a post';
     //alert maken enkel user kunnen post liken: login cancel button
     header('Location: ../pages/blog_detail.php');
 }
