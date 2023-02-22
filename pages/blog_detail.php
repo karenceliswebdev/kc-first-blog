@@ -34,6 +34,16 @@ if($sessionExist===true) {
         <?php endif; ?>
     <?php endif; ?>
 
+    <!--delete possibility-->
+    <?php if($sessionExist===true) : ?>
+        <?php if($post['user_id']===$user['id']) : ?>
+            <form action="./delete_post_action.php" method="post">
+                <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+                <button>Delete</button>
+            </form>
+        <?php endif; ?>
+    <?php endif; ?>
+
     <!--post-->
     <div class="post">
         <h2><?= $post['title']; ?></h2>

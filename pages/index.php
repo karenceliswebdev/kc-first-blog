@@ -7,7 +7,6 @@ include '../helpers/functions.php';
 
 $posts = getPosts($db);
 $sessionExist = checkSessionExists($db);
-
 ?>
 
 <?php include "../templates/nav.php"?>
@@ -21,7 +20,6 @@ $sessionExist = checkSessionExists($db);
                 <h2><?= $posts['title']; ?></h2>
                 <img src="../pictures/pic_default.png" alt="">
                 <p><?= readMore($posts['body']); ?></p>
-
                 <form action="./blog_detail.php" method="post">
                     <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
                     <button>Read More</button>
