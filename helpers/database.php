@@ -57,6 +57,25 @@ function getAllPostsFromUser(PDO $db): array {
     return $res->fetchAll();
 }
 
+function getAllLikedPostsFromUser(PDO $db): array {
+
+    //eerst user id vinden via session id
+    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $selectUser->bindParam(':sessionId', $_SESSION['sessionId']);
+    $selectUser->setFetchMode(PDO::FETCH_ASSOC);
+    $selectUser->execute();
+
+    $user = $selectUser->fetch();
+
+    //dan alle posts selecteren die deze user_id hebben
+    $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
+    $res->bindParam(':userId', $user['id']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $res->fetchAll();
+}
+
 function updatePost($db, string $title, string $body, int $postId): void {    
 // string en title html
 
