@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 session_start();
 
 ?>
@@ -20,13 +19,15 @@ session_start();
 
     <h1>Login</h1>
 
+    <?php if(!empty($_SESSION['feedback'])) : ?>
+        <p><?=$_SESSION['feedback']; ?></p>
+    <?php endif; ?>
+
     <form method="post" action="../actions/login_action.php">
         <label for="email">email</label><br>
         <input type="text" name ="email" id="email"></input><br>
-
         <label for="password">password</label><br>
         <input type="password" name ="password" id="password"></input><br>
-
         <button>login</button>
     </form>
 
