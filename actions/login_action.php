@@ -24,11 +24,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
-    $emailExist = checkEmailExists($db, $_POST['email']);
+    $emailExists = checkEmailExists($db, $_POST['email']);
 
     //User does not exist cannot login. Should create an account
-    if($emailExist===false) {
-        $_SESSION['feedback'] = 'incorrect login details';
+    if($emailExists===false) {
+        $_SESSION['feedback'] = 'User does not exist, got to sign up';
         header('Location: ../pages/login.php');
         die;
     }
