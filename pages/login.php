@@ -21,6 +21,7 @@ session_start();
 
     <?php if(!empty($_SESSION['feedback'])) : ?>
         <p><?=$_SESSION['feedback']; ?></p>
+        <?php unset($_SESSION['feedback']); ?>
     <?php endif; ?>
 
     <form method="post" action="../actions/login_action.php">
