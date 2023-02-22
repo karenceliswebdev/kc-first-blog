@@ -17,6 +17,11 @@ session_start();
     </ul>
 
     <h1>Sign up</h1>
+
+    <?php if(!empty($_SESSION['feedback'])) : ?>
+        <p><?=$_SESSION['feedback']; ?></p>
+        <?php unset($_SESSION['feedback']); ?>
+    <?php endif; ?>
     
     <form method="post" action="../actions/sign_up_action.php">
         <label>email</label><br>
