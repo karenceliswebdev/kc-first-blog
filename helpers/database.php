@@ -49,7 +49,7 @@ function getAllPostsFromUser(PDO $db): array {
     $user = $selectUser->fetch();
 
     //dan alle posts selecteren die deze user_id hebben
-    $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId ORDER BY created_at DESC;');
+    $res = $db->prepare('SELECT * FROM posts WHERE user_id = :userId AND deleted_at IS NULL ORDER BY created_at DESC;');
     $res->bindParam(':userId', $user['id']);
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
