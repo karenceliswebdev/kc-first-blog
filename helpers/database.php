@@ -117,6 +117,16 @@ function addNewPost(PDO $db, string $title, string $body): void {
 
 }
 
+function deletePost(PDO $db, int $postId): void {
+
+    $now = date('Y-m-d H:i:s');
+
+    $deletePostStatement = $db->prepare('UPDATE posts SET deleted_at = :now WHERE id = :postId');
+    $deletePostStatement->bindParam(':now', $now);
+    $deletePostStatement->bindParam(':postId', $postId);
+    $deletePostStatement->execute();
+}
+
 function checkEmailExists(PDO $db, string $email): bool {
            
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
@@ -147,7 +157,6 @@ function updateSessionId(PDO $db, string $email): void {
     $updateUserSessionIdStatement->bindParam(':sessionId', $_SESSION['sessionId']);
     $updateUserSessionIdStatement->bindParam(':email', $newEmail);
     $updateUserSessionIdStatement->execute();
-
 }
 
 function checkSessionExists(PDO $db): bool {
