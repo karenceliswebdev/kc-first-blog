@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include '../helpers/database.php';
 
 //feedback geven

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 include '../helpers/database.php';
 
 //checken sessie nog geldig anders redirect to login page
