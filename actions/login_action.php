@@ -13,13 +13,13 @@ include '../helpers/database.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
-
+        $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
     }
 
     if(empty($_POST['password'])) {
-        
+        $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
     }
@@ -28,8 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //User does not exist cannot login. Should create an account
     if($emailExist===false) {
-        
-        //$_SESSION['feedback'] = 'maak een account aan';
+        $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
     }
@@ -39,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //indien password false stuur terug login
     if($passwordIsCorrect===false) {
-        
+        $_SESSION['feedback'] = 'incorrect login details';
         //$_SESSION['feedback'] = 'incorrecte logingegevens';
         header('Location: ../pages/login.php');
         die;
@@ -56,18 +55,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Redirect to page met gebruiker naam in hoek (changed index)
     header('Location: ../pages/index.php');
 }
-
-
-//fouten:
-
-//geen email ingevuld: toon geef email in
-
-//geen paswoord ingevuld toon: geef paswoord in
-
-//indien email niet herkent: toon maak een account aan
-
-//maak een feedback cookie voor elk (email/ww/account)
-
-
 ?>
 
