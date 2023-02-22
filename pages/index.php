@@ -9,6 +9,7 @@ $posts = getPosts($db);
 $sessionExist = checkSessionExists($db);
 
 ?>
+
 <?php include "../templates/nav.php"?>
 
     <h1>Recent posts</h1>
