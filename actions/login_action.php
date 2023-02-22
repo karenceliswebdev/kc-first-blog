@@ -55,7 +55,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Redirect to page met gebruiker naam in hoek (changed index)
     header('Location: ../pages/index.php');
-
 }
 
 

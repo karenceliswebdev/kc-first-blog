@@ -256,5 +256,4 @@ function deleteLikePost(PDO $db, int $postId): void {
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 }
-
 ?>

@@ -9,7 +9,6 @@ $user = getUser($db);
  
 //Create session id for user
 $userSessionId = uniqid();
-
 session_destroy();
 
 header("Location: ../pages/index.php");
