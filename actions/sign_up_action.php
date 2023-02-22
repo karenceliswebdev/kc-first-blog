@@ -2,8 +2,6 @@
 
 include '../helpers/database.php';
 
-$user = [];
-
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
