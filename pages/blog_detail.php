@@ -37,7 +37,7 @@ if($sessionExist===true) {
     <!--delete possibility-->
     <?php if($sessionExist===true) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
-            <form action="./delete_post_action.php" method="post">
+            <form action="../actions/delete_post_action.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
                 <button>Delete</button>
             </form>
@@ -51,16 +51,18 @@ if($sessionExist===true) {
         <p><?= $post['body']; ?></p>     
     </div>
 
-    <!--like mss iets doen like tikt zonder user alert login/regi-->
+    <!--like possibility-->
     <form action="../actions/like_action.php" method="post">
         <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
         <button style="height:50px; width:50px;">
-            <img src = "<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
+            <img src="<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
     </form>
 
+    <p><?= showLikes($db, (int)$_SESSION['postId']); ?></p>
+
     <?php if(!empty($_SESSION['feedback'])) : ?>
-        <p><?=$_SESSION['feedback']; ?></p>
+        <p><?= $_SESSION['feedback']; ?></p>
         <?php unset($_SESSION['feedback']); ?>
     <?php endif; ?>
 
