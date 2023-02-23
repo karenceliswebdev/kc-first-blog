@@ -57,25 +57,6 @@ function getAllPostsFromUser(PDO $db): array {
     return $res->fetchAll();
 }
 
-function getAllLikedPostsFromUser(PDO $db): array {
-
-    //eerst user id vinden via session id
-    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
-    $selectUser->bindParam(':sessionId', $_SESSION['sessionId']);
-    $selectUser->setFetchMode(PDO::FETCH_ASSOC);
-    $selectUser->execute();
-
-    $user = $selectUser->fetch();
-
-    //dan alle posts selecteren die deze user_id hebben
-    $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
-    $res->bindParam(':userId', $user['id']);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-
-    return $res->fetchAll();
-}
-
 function updatePost($db, string $title, string $body, int $postId): void {    
 // string en title html
 
@@ -249,6 +230,36 @@ function checkUserLikedPost(PDO $db, int $postId): bool {
     return false;
 }
 
+function getAllLikedPostsFromUser(PDO $db): array {
+
+    //eerst user id vinden via session id
+    $selectUser = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $selectUser->bindParam(':sessionId', $_SESSION['sessionId']);
+    $selectUser->setFetchMode(PDO::FETCH_ASSOC);
+    $selectUser->execute();
+
+    $user = $selectUser->fetch();
+
+    //dan alle posts selecteren die deze user_id hebben
+    $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
+    $res->bindParam(':userId', $user['id']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+
+    return $res->fetchAll();
+}
+
+function showLikes(PDO $db, int $postId): void {
+
+    $res = $db->prepare('SELECT id FROM likes WHERE post_id = :postId');
+    $res->bindParam(':postId', $postId);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+    $count = $res->fetchAll();
+
+    echo count($count);
+}
+
 function addLikePost(PDO $db, int $postId): void {
     
     $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
@@ -284,4 +295,5 @@ function deleteLikePost(PDO $db, int $postId): void {
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
 }
+
 ?>
