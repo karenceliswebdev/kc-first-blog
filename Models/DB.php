@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 class DB {
 
-    private $host_name;
-    private $db_name;
-    private $username;
-    private $password;
-    private $conn;
+    private string $host_name;
+    private string$db_name;
+    private string $username;
+    private string $password;
+    private object $conn;
 
     function __construct() {
        
