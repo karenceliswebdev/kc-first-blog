@@ -24,25 +24,25 @@ class UserController extends User {
     }
     
     //check hash (input pp) = db hash
-    public function checkUserPassword(string $email, string $password): bool {
+    public function checkPassword(string $email, string $password): bool {
         return $this->checkUserPasswordCorrect($email, $password);  
     }
     
     //vind user via session id
-    public function getUserPost(): array {
+    public function get(): array {
         return $this->getUser();  
     }
 
     //voeg user toe die zich heeft geregistreerd
-    public function addNewUser(string $email, string $password): void {
+    public function add(string $email, string $password): void {
         $this->addNewUser($email, $password);
     }
     
-    public function checkUserLikedPost(int $postId): bool {
+    public function checkLikedPost(int $postId): bool {
         return $this->checkUserLikedPost($postId); 
     }
     
-    public function getAllLikedPostsFromUser(): array {
+    public function getLikesPost(): array {
         return $this->getAllLikedPostsFromUser(); 
     }
 }
