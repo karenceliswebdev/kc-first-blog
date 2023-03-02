@@ -31,11 +31,11 @@ class PostController extends Post {
         $this->showLikes($postId); 
     }
     
-    public function addLikePost(int $postId): void {
+    public function addLike(int $postId): void {
         $this->addLikePost($postId);
     }
     
-    public function deleteLikePost(int $postId): void {   
+    public function deleteLike(int $postId): void {   
         $this->deleteLikePost($postId);
     }
 }
