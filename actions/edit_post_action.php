@@ -4,7 +4,11 @@
 //ook special chars hiervoor opletten
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 //feedback geven
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,7 +28,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = ($_POST['postId']);
 
     //voeg post toe
-    updatePost($_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
+    $newPostController = new PostController();
+    $newPostController->update($_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/blog_detail.php');

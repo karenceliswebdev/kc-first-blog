@@ -1,8 +1,13 @@
 <?php
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
-$sessionExist = checkSessionExists();
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
 
 if($sessionExist===false) {
     $_SESSION['feedback'] = 'Only loged in users can like a post';
@@ -18,19 +23,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $_SESSION['postId'] = $_POST['postId'];
-
-    //check user post geliked heeft
-    $userLikedPost = checkUserLikedPost((int)$_SESSION['postId']);
+    $userLikedPost = $newUserController->checkLikedPost((int)$_SESSION['postId']);
 
     if($userLikedPost) {
         //bestaat -> verwijderen
-        deleteLikePost((int)$_SESSION['postId']);
+        $newPostController = new PostController();
+        $newPostController->deleteLike((int)$_SESSION['postId']);
 
         header('Location: ../pages/blog_detail.php');
         die;
     }   
     //niet bestaat -> toevoegen
-    addLikePost((int)$_SESSION['postId']);   
+    $newPostController = new PostController();
+    $newPostController->addLike((int)$_SESSION['postId']);   
 
     //Redirect to detail page
     header('Location: ../pages/blog_detail.php');

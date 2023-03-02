@@ -8,7 +8,11 @@ declare(strict_types=1);
 //maak uniek sessie id en steek deze in db 
 //steek deze sessie id in een auth cookie (vanaf nu bij iedere site gecheckt hierop (via auth cookie))
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -23,8 +27,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/login.php');
         die;
     }
-    
-    $emailExists = checkEmailExists($_POST['email']);
+    $newUserController = new UserController();
+    $emailExists = $newUserController->checkEmail($_POST['email']);
 
     //User does not exist cannot login. Should create an account
     if($emailExists===false) {
@@ -34,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Check if user input in password field hashed is the same as the has from our database. If not password is incorrect
-    $passwordIsCorrect = checkUserPasswordCorrect($_POST['email'], $_POST['password']);
+    $passwordIsCorrect = $newUserController->checkPassword($_POST['email'], $_POST['password']);
 
     //indien password false stuur terug login
     if($passwordIsCorrect===false) {
@@ -46,11 +50,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Create session id for user
     $userSessionId = uniqid();
-
     $_SESSION['sessionId'] = $userSessionId;
-    
     //sessie id in db stoppen
-    updateSessionId($_POST['email']);
+    $newUserController->updateSession($_POST['email']);
 
     //Redirect to page met gebruiker naam in hoek (changed index)
     header('Location: ../pages/index.php');

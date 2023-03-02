@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -11,8 +15,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     $_SESSION['postId'] = ($_POST['postId']);
-
-    deletePost((int)$_SESSION['postId']);
+    $newPostController = new PostController();
+    $newPostController->delete((int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/user_posts.php');

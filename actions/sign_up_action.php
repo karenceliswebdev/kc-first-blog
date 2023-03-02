@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -19,7 +23,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //zien email nog niet ingenomen
-    $emailExists = checkEmailExists($_POST['email']);
+    $newUserController = new UserController();
+    $emailExists = $newUserController->checkEmail($_POST['email']);
 
     if($emailExists) {
         $_SESSION['feedback'] = 'User already exist, go to login';
@@ -30,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
       
     //hash password
     //bestaat niet dus kun je hem in db stoppen
-    addNewUser($_POST['email'], $_POST['password']);
+    $newUserController->add($_POST['email'], $_POST['password']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/login.php');

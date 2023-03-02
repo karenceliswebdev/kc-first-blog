@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 //feedback geven
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,7 +25,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     //voeg post toe
-    addNewPost($_POST['title'], $_POST['body']);
+    $newPostController = new PostController();
+    $newPostController->add($_POST['title'], $_POST['body']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/user_posts.php');
