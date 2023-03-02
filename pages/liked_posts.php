@@ -2,11 +2,17 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 include '../helpers/functions.php';
 
-$sessionExist = checkSessionExists();
-$likedPosts = getAllLikedPostsFromUser();
+$newPostController = new PostController();
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
+$likedPosts = $newUserController->getLikedPosts();
 
 ?>
 <?php include "../templates/nav.php"?>
@@ -17,7 +23,7 @@ $likedPosts = getAllLikedPostsFromUser();
     <div class="recentPosts">
         <?php if(!(count($likedPosts) === 0)) : ?>
             <?php foreach($likedPosts as $likedPosts) : ?>
-                <?php $post = getPostDetailPage($likedPosts['post_id']); ?>
+                <?php $post = $newPostController->getDetails($likedPosts['post_id']); ?>
                 <?php if(empty($post['deleted_at'])) : ?>
                     <h2><?= $post['title']; ?></h2>
                     <img src="../pictures/pic_default.png" alt="">

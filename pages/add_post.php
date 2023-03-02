@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 //doel 1 hoop blogposts maken en deze weergeven op homepage
 
-include '../helpers/database.php';
-include '../helpers/functions.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
-//checken sessie nog geldig anders redirect to login page
-$sessionExist = checkSessionExists();
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
 
 ?>
 <?php include "../templates/nav.php"?>

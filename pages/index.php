@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 include '../helpers/functions.php';
 
-$posts = getPosts();
-$sessionExist = checkSessionExists();
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
+$posts = $newUserController->getPosts();
 ?>
 
 <?php include "../templates/nav.php"?>

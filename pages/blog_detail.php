@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
+
 include '../helpers/functions.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,16 +15,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = $_POST['postId'];
 }
 
-$post = getPostDetailPage((int)$_SESSION['postId']);
-$sessionExist = checkSessionExists();
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
+
+$newPostController = new PostController();
+$post = $newPostController->getDetails((int)$_SESSION['postId']); 
 
 if($sessionExist===false) {
     $userLikedPost = false;
 }
 
 if($sessionExist===true) {
-    $user = getUser();
-    $userLikedPost = checkUserLikedPost((int)$_SESSION['postId']);
+    $user = $newUserController->get();
+    $userLikedPost = $newUserController->checkLikedPost((int)$_SESSION['postId']);
 }
 ?>
 <?php include "../templates/nav.php"?>
@@ -59,7 +67,7 @@ if($sessionExist===true) {
         </button>
     </form>
 
-    <p><?= showLikes((int)$_SESSION['postId']); ?></p>
+    <p><?= $newPostController->showLikes((int)$_SESSION['postId']); ?></p>
 
     <?php include "../templates/feedback.php"?>
 

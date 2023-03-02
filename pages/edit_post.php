@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
-
-//checken sessie nog geldig anders redirect to login page
-$sessionExist = checkSessionExists();
+include '../Models/DB.php';
+include '../Models/Post.php';
+include '../Models/User.php';
+include '../Controller/UserController.php';
+include '../Controller/PostController.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -17,9 +18,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = $_POST['postId'];
 }
 
-$post = getPostDetailPage((int)$_SESSION['postId']);
+$newUserController = new UserController();
+$sessionExist = $newUserController->checkSession();
 
-//ge gaat array ophalen in vb steken van post rij en dan array[titel], pic en content in inputvelden steken 
+$newPostController = new PostController();
+$post = $newPostController->getDetails((int)$_SESSION['postId']); 
 ?>
 <?php include "../templates/nav.php"?>
 
