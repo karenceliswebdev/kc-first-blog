@@ -19,10 +19,7 @@ session_start();
 
     <h1>Sign up</h1>
 
-    <?php if(!empty($_SESSION['feedback'])) : ?>
-        <p><?=$_SESSION['feedback']; ?></p>
-        <?php unset($_SESSION['feedback']); ?>
-    <?php endif; ?>
+    <?php include "../templates/feedback.php"?>
     
     <form method="post" action="../actions/sign_up_action.php">
         <label>email</label><br>

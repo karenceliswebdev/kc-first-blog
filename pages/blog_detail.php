@@ -61,9 +61,6 @@ if($sessionExist===true) {
 
     <p><?= showLikes((int)$_SESSION['postId']); ?></p>
 
-    <?php if(!empty($_SESSION['feedback'])) : ?>
-        <p><?= $_SESSION['feedback']; ?></p>
-        <?php unset($_SESSION['feedback']); ?>
-    <?php endif; ?>
+    <?php include "../templates/feedback.php"?>
 
 <?php include "../templates/footer.php"?>
