@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = ($_POST['postId']);
 
     //voeg post toe
-    updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
+    updatePost($_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/blog_detail.php');

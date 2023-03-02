@@ -2,7 +2,7 @@
 
 include '../helpers/database.php';
 
-$sessionExist = checkSessionExists($db);
+$sessionExist = checkSessionExists();
 
 if($sessionExist===false) {
     $_SESSION['feedback'] = 'Only loged in users can like a post';
@@ -20,17 +20,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = $_POST['postId'];
 
     //check user post geliked heeft
-    $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
+    $userLikedPost = checkUserLikedPost((int)$_SESSION['postId']);
 
     if($userLikedPost) {
         //bestaat -> verwijderen
-        deleteLikePost($db, (int)$_SESSION['postId']);
+        deleteLikePost((int)$_SESSION['postId']);
 
         header('Location: ../pages/blog_detail.php');
         die;
     }   
     //niet bestaat -> toevoegen
-    addLikePost($db, (int)$_SESSION['postId']);   
+    addLikePost((int)$_SESSION['postId']);   
 
     //Redirect to detail page
     header('Location: ../pages/blog_detail.php');

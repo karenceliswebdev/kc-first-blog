@@ -5,7 +5,7 @@ declare(strict_types=1);
 include '../helpers/database.php';
 
 //moet weten welke user ik sessie wil verwijderen
-$user = getUser($db);
+$user = getUser();
  
 //Create session id for user
 $userSessionId = uniqid();

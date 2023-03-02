@@ -5,8 +5,8 @@ declare(strict_types=1);
 include '../helpers/database.php';
 include '../helpers/functions.php';
 
-$posts = getPosts($db);
-$sessionExist = checkSessionExists($db);
+$posts = getPosts();
+$sessionExist = checkSessionExists();
 ?>
 
 <?php include "../templates/nav.php"?>

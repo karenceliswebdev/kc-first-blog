@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     //voeg post toe
-    addNewPost($db, $_POST['title'], $_POST['body']);
+    addNewPost($_POST['title'], $_POST['body']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/user_posts.php');

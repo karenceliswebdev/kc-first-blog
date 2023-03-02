@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
-    $emailExists = checkEmailExists($db, $_POST['email']);
+    $emailExists = checkEmailExists($_POST['email']);
 
     //User does not exist cannot login. Should create an account
     if($emailExists===false) {
@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Check if user input in password field hashed is the same as the has from our database. If not password is incorrect
-    $passwordIsCorrect = checkUserPasswordCorrect($db, $_POST['email'], $_POST['password']);
+    $passwordIsCorrect = checkUserPasswordCorrect($_POST['email'], $_POST['password']);
 
     //indien password false stuur terug login
     if($passwordIsCorrect===false) {
@@ -50,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['sessionId'] = $userSessionId;
     
     //sessie id in db stoppen
-    updateSessionId($db, $_POST['email']);
+    updateSessionId($_POST['email']);
 
     //Redirect to page met gebruiker naam in hoek (changed index)
     header('Location: ../pages/index.php');

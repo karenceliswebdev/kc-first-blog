@@ -11,8 +11,8 @@ include '../helpers/functions.php';
 //all auth cookie gemaakt?
 
 //checken sessie nog geldig anders redirect to login page
-$sessionExist = checkSessionExists($db);
-$posts = getAllPostsFromUser($db);
+$sessionExist = checkSessionExists();
+$posts = getAllPostsFromUser();
 ?>
 <?php include "../templates/nav.php"?>
 

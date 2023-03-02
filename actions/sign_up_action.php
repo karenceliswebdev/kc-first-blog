@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //zien email nog niet ingenomen
-    $emailExists = checkEmailExists($db, $_POST['email']);
+    $emailExists = checkEmailExists($_POST['email']);
 
     if($emailExists) {
         $_SESSION['feedback'] = 'User already exist, go to login';
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
       
     //hash password
     //bestaat niet dus kun je hem in db stoppen
-    addNewUser($db, $_POST['email'], $_POST['password']);
+    addNewUser($_POST['email'], $_POST['password']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/login.php');

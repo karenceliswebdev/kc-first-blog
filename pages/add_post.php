@@ -8,7 +8,7 @@ include '../helpers/database.php';
 include '../helpers/functions.php';
 
 //checken sessie nog geldig anders redirect to login page
-$sessionExist = checkSessionExists($db);
+$sessionExist = checkSessionExists();
 
 ?>
 <?php include "../templates/nav.php"?>

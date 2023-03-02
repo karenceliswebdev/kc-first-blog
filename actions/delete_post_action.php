@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $_SESSION['postId'] = ($_POST['postId']);
 
-    deletePost($db, (int)$_SESSION['postId']);
+    deletePost((int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/user_posts.php');

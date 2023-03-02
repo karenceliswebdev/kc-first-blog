@@ -5,8 +5,8 @@ declare(strict_types=1);
 include '../helpers/database.php';
 include '../helpers/functions.php';
 
-$sessionExist = checkSessionExists($db);
-$likedPosts = getAllLikedPostsFromUser($db);
+$sessionExist = checkSessionExists();
+$likedPosts = getAllLikedPostsFromUser();
 
 ?>
 <?php include "../templates/nav.php"?>
@@ -17,7 +17,7 @@ $likedPosts = getAllLikedPostsFromUser($db);
     <div class="recentPosts">
         <?php if(!(count($likedPosts) === 0)) : ?>
             <?php foreach($likedPosts as $likedPosts) : ?>
-                <?php $post = getPostDetailPage($db, $likedPosts['post_id']); ?>
+                <?php $post = getPostDetailPage($likedPosts['post_id']); ?>
                 <?php if(empty($post['deleted_at'])) : ?>
                     <h2><?= $post['title']; ?></h2>
                     <img src="../pictures/pic_default.png" alt="">

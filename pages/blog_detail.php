@@ -10,16 +10,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = $_POST['postId'];
 }
 
-$post = getPostDetailPage($db, (int)$_SESSION['postId']);
-$sessionExist = checkSessionExists($db);
+$post = getPostDetailPage((int)$_SESSION['postId']);
+$sessionExist = checkSessionExists();
 
 if($sessionExist===false) {
     $userLikedPost = false;
 }
 
 if($sessionExist===true) {
-    $user = getUser($db);
-    $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
+    $user = getUser();
+    $userLikedPost = checkUserLikedPost((int)$_SESSION['postId']);
 }
 ?>
 <?php include "../templates/nav.php"?>
@@ -59,7 +59,7 @@ if($sessionExist===true) {
         </button>
     </form>
 
-    <p><?= showLikes($db, (int)$_SESSION['postId']); ?></p>
+    <p><?= showLikes((int)$_SESSION['postId']); ?></p>
 
     <?php if(!empty($_SESSION['feedback'])) : ?>
         <p><?= $_SESSION['feedback']; ?></p>
