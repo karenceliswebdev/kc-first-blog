@@ -4,9 +4,9 @@ declare(strict_types=1);
 session_start();
 
 ?>
-<?php include "../components/head.php"?>
+<?php include "./components/head.php"?>
 
-    <?php include "../components/nav.php"?>
+    <?php include "./components/nav.php"?>
 
     <h1>Login</h1>
 
@@ -25,4 +25,4 @@ session_start();
 
     <p><a href="./sign-up.php">sign up</a></p>
 
-<?php include "../components/footer.php"?>
+<?php include "./components/footer.php"?>

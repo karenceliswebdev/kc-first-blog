@@ -8,9 +8,9 @@ include '../helpers/functions.php';
 //checken sessie nog geldig anders redirect to login page
 $sessionExist = checkSessionExists($db);
 ?>
-<?php include "../components/head.php"?>
+<?php include "./components/head.php"?>
 
-    <?php include "../components/nav.php"?>
+    <?php include "./components/nav.php"?>
 
     <h1>Add new post</h1>
 
@@ -33,4 +33,4 @@ $sessionExist = checkSessionExists($db);
     
     <a href="./user-posts.php"><button>cancel</button></a> 
       
-<?php include "../components/footer.php"?>
+<?php include "./components/footer.php"?>

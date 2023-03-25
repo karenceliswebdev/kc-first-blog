@@ -7,9 +7,9 @@ include '../helpers/functions.php'; //readmore
 $posts = getPosts($db);
 $sessionExist = checkSessionExists($db);
 ?>
-<?php include "../components/head.php"?>
+<?php include "./components/head.php"?>
     
-    <?php include "../components/nav.php"?>
+    <?php include "./components/nav.php"?>
 
     <h1>Recent posts</h1>
 
@@ -28,4 +28,4 @@ $sessionExist = checkSessionExists($db);
         <?php endif; ?>
     </div>
 
-<?php include "../components/footer.php"?>
+<?php include "./components/footer.php"?>

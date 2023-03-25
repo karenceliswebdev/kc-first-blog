@@ -22,9 +22,9 @@ if($sessionExist===true) {
     $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 }
 ?>
-<?php include "../components/head.php"?>
+<?php include "./components/head.php"?>
     
-    <?php include "../components/nav.php"?>
+    <?php include "./components/nav.php"?>
 
     <!--edit possibility-->
     <?php if($sessionExist===true) : ?>
@@ -68,4 +68,4 @@ if($sessionExist===true) {
         <?php unset($_SESSION['feedback']); ?>
     <?php endif; ?>
 
-<?php include "../components/footer.php"?>
+<?php include "./components/footer.php"?>
