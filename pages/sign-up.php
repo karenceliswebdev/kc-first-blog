@@ -11,10 +11,7 @@ $sessionExist = checkSessionExists($db);
 
     <h1>Sign up</h1>
 
-    <?php if(!empty($_SESSION['feedback'])) : ?>
-        <p style="color: red;"><?=$_SESSION['feedback']; ?></p>
-        <?php unset($_SESSION['feedback']); ?>
-    <?php endif; ?>
+    <?php include "./components/feedback.php"?>
     
     <form method="post" action="../actions/sign-up-action.php">
         <label>email</label><br>

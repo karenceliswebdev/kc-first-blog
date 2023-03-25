@@ -14,10 +14,7 @@ $sessionExist = checkSessionExists($db);
 
     <h1>Add new post</h1>
 
-    <?php if(!empty($_SESSION['feedback'])) : ?>
-        <p style="color: red;"><?= $_SESSION['feedback']; ?></p>
-        <?php unset($_SESSION['feedback']); ?>
-    <?php endif; ?>
+    <?php include "./components/feedback.php"?>
     
     <!--new post-->
     <form method="post" action="../actions/add-post-action.php">
