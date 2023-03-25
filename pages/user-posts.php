@@ -12,9 +12,7 @@ $posts = getAllPostsFromUser($db);
 
     <?php include "./components/nav.php"?>
 
-    <?php if($sessionExist===true) : ?>
-        <a href="./add-post.php"><button>Add post</button></a>
-    <?php endif; ?>
+    <a href="./add-post.php"><button>Add post</button></a>
 
     <!--recent posts (6)-->
     <?php include "./components/display-posts-teaser.php"?>
