@@ -20,19 +20,14 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
     
     <?php include "./components/nav.php"?>
 
-    <!--edit possibility-->
     <?php if($sessionExist===true) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
+            <!--edit possibility-->
             <form action="./edit-post.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
                 <button>Edit</button>
             </form>
-        <?php endif; ?>
-    <?php endif; ?>
-
-    <!--delete possibility-->
-    <?php if($sessionExist===true) : ?>
-        <?php if($post['user_id']===$user['id']) : ?>
+            <!--delete possibility-->
             <form action="../actions/delete-post-action.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
                 <button>Delete</button>
