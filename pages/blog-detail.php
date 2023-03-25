@@ -29,7 +29,7 @@ if($sessionExist===true) {
     <!--edit possibility-->
     <?php if($sessionExist===true) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
-            <form action="./edit_post.php" method="post">
+            <form action="./edit-post.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
                 <button>Edit</button>
             </form>
@@ -60,7 +60,7 @@ if($sessionExist===true) {
             <img src="<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
     </form>
-
+    
     <p><?= showLikes($db, (int)$_SESSION['postId']); ?></p>
 
     <?php include "./components/feedback.php"?>

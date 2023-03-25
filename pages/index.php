@@ -14,12 +14,6 @@ $sessionExist = checkSessionExists($db);
     <h1>Recent posts</h1>
 
     <!--recent posts (6)-->
-    <div class="recentPosts">
-        <?php if(!(count($posts) === 0)) : ?>
-            <?php foreach($posts as $posts) : ?>
-                <?php include "./components/post-teaser.php"?>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
+    <?php include "./components/display-posts-teaser.php"?>
 
 <?php include "./components/footer.php"?>
