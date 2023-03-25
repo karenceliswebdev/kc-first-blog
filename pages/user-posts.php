@@ -6,6 +6,12 @@ include '../helpers/database.php';
 include '../helpers/functions.php';
 
 $sessionExist = checkSessionExists($db);
+
+if($sessionExist==false) {
+    header('Location: ./login.php');
+    die;
+}
+
 $posts = getAllPostsFromUser($db);
 ?>
 <?php include "./components/head.php"?>

@@ -6,6 +6,11 @@ include '../helpers/database.php';
 
 $sessionExist = checkSessionExists($db);
 
+if($sessionExist==false) {
+    header('Location: ./login.php');
+    die;
+}
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {

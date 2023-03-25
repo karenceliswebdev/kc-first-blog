@@ -7,6 +7,12 @@ include '../helpers/functions.php';
 
 //checken sessie nog geldig anders redirect to login page
 $sessionExist = checkSessionExists($db);
+
+if($sessionExist==false) {
+    header('Location: ./login.php');
+    die;
+}
+
 ?>
 <?php include "./components/head.php"?>
 
