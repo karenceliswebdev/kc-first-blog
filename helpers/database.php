@@ -228,6 +228,7 @@ function checkUserLikedPost(PDO $db, int $postId): bool {
     }
 
     return false;
+    
 }
 
 function getAllLikedPostsFromUser(PDO $db): array {
