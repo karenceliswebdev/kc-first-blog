@@ -242,12 +242,23 @@ function getAllLikedPostsFromUser(PDO $db): array {
     $user = $selectUser->fetch();
 
     //dan alle posts selecteren die deze user_id hebben
-    $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
-    $res->bindParam(':userId', $user['id']);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
+    $getAllLikedPosts = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
+    $getAllLikedPosts->bindParam(':userId', $user['id']);
+    $getAllLikedPosts->setFetchMode(PDO::FETCH_ASSOC);
+    $getAllLikedPosts->execute();
+    $likedPosts = $getAllLikedPosts->fetchAll();
 
-    return $res->fetchAll();
+    $res =[];
+
+    foreach($likedPosts as $likedPosts) {
+        $post = getPostDetailPage($db, $likedPosts['post_id']);
+
+        if(empty($post['deleted_at'])) {
+            array_push($res, $post);
+        }
+    }
+
+    return $res;
 }
 
 function showLikes(PDO $db, int $postId): void {
