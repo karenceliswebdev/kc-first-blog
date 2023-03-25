@@ -26,6 +26,7 @@ $post = getPostDetailPage($db, (int)$_SESSION['postId']);
 
     <?php include "./components/feedback.php"?>
 
+     <!--edit post-->
     <form method="post" action="../actions/edit-post-action.php">
         <div class="newPost">
             <label for="title">Title:</label><br>
