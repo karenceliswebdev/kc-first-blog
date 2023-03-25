@@ -9,7 +9,9 @@ $sessionExist = checkSessionExists($db);
 $likedPosts = getAllLikedPostsFromUser($db);
 
 ?>
-<?php include "../templates/nav.php"?>
+<?php include "../components/head.php"?>
+    
+    <?php include "../components/nav.php"?>
 
     <h1>Liked posts</h1>
 
@@ -31,4 +33,4 @@ $likedPosts = getAllLikedPostsFromUser($db);
         <?php endif; ?>
     </div>
 
-<?php include "../templates/footer.php"?>
+<?php include "../components/footer.php"?>

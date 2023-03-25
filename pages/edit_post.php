@@ -21,7 +21,9 @@ $post = getPostDetailPage($db, (int)$_SESSION['postId']);
 
 //ge gaat array ophalen in vb steken van post rij en dan array[titel], pic en content in inputvelden steken 
 ?>
-<?php include "../templates/nav.php"?>
+<?php include "../components/head.php"?>
+
+    <?php include "../components/nav.php"?>
 
     <h1>Edit post</h1>
 
@@ -47,4 +49,4 @@ $post = getPostDetailPage($db, (int)$_SESSION['postId']);
         <button>cancel</button>
     </form>
 
-<?php include "../templates/footer.php"?>
+<?php include "../components/footer.php"?>

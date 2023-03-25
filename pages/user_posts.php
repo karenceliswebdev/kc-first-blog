@@ -14,7 +14,9 @@ include '../helpers/functions.php';
 $sessionExist = checkSessionExists($db);
 $posts = getAllPostsFromUser($db);
 ?>
-<?php include "../templates/nav.php"?>
+<?php include "../components/head.php"?>
+
+    <?php include "../components/nav.php"?>
 
     <?php if($sessionExist===true) : ?>
         <a href="./add_post.php"><button>Add post</button></a>
@@ -35,4 +37,4 @@ $posts = getAllPostsFromUser($db);
         <?php endif; ?>
     </div>
 
-<?php include "../templates/footer.php" ?>
+<?php include "../components/footer.php" ?>
