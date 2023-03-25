@@ -4,5 +4,6 @@
     <label for="password">password</label><br>
     <input type="password" name ="password" id="password"></input><br>
     <button>sign up</button>
-    <p><a href="./login.php">log in</a></p>
 </form>
+
+<p><a href="./login.php">log in</a></p>
