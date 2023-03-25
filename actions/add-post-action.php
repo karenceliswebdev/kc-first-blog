@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 include '../helpers/database.php';
-
+<?php include "../components/head.php"?>
 //feedback geven
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
