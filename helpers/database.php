@@ -213,6 +213,11 @@ function checkUserLikedPost(PDO $db, int $postId): bool {
 
     $user = $getUserStatement->fetch();
 
+    if(!$user) {
+        return false;
+        die;
+    }
+
     $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId AND post_id = :postId');
     $res->bindParam(':userId', $user['id']);
     $res->bindParam(':postId', $postId);
