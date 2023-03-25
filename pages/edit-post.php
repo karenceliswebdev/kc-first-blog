@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 include '../helpers/database.php';
 
-//checken sessie nog geldig anders redirect to login page
 $sessionExist = checkSessionExists($db);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,8 +17,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $post = getPostDetailPage($db, (int)$_SESSION['postId']);
-
-//ge gaat array ophalen in vb steken van post rij en dan array[titel], pic en content in inputvelden steken 
 ?>
 <?php include "./components/head.php"?>
 

@@ -2,15 +2,9 @@
 
 declare(strict_types=1);
 
-
-//doel 1 hoop blogposts maken en deze weergeven op homepage
-
 include '../helpers/database.php';
 include '../helpers/functions.php';
 
-//all auth cookie gemaakt?
-
-//checken sessie nog geldig anders redirect to login page
 $sessionExist = checkSessionExists($db);
 $posts = getAllPostsFromUser($db);
 ?>
@@ -26,13 +20,7 @@ $posts = getAllPostsFromUser($db);
     <div class="allUserPosts">
         <?php if(!(count($posts) === 0)) : ?>
             <?php foreach($posts as $posts) : ?>
-                <h2><?= $posts['title']; ?></h2>
-                <img src="../pictures/pic-default.png" alt="">
-                <p><?= readMore($posts['body']); ?></p>
-                <form action="./blog-detail.php" method="post">
-                    <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
-                    <button>Read More</button>
-                </form>
+                <?php include "./components/post-teaser.php"?>
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
