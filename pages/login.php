@@ -1,8 +1,9 @@
 <?php
-
 declare(strict_types=1);
-session_start();
 
+include '../helpers/database.php';
+
+$sessionExist = checkSessionExists($db);
 ?>
 <?php include "./components/head.php"?>
 
