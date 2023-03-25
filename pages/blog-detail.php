@@ -12,7 +12,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $post = getPostDetailPage($db, (int)$_SESSION['postId']);
 $sessionExist = checkSessionExists($db);
-$user = getUser($db);
+
+if($sessionExist===true) {
+    $user = getUser($db); 
+}
+
 $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
 ?>
