@@ -20,17 +20,17 @@ $sessionExist = checkSessionExists($db);
     <?php endif; ?>
     
     <!--new post-->
-    <form method="post" action="../actions/add_post_action.php">
+    <form method="post" action="../actions/add-post-action.php">
         <div class="newPost">
             <label for="title">Title:</label><br>
             <input type="text" name ="title" id="title"></input><br>
-            <img src="../pictures/pic_default.png" alt=""><br>
+            <img src="../pictures/pic-default.png" alt=""><br>
             <label for="body">Content:</label><br>
             <textarea name="body" id="body" rows="50" cols="100"></textarea><br>
             <button>save</button> 
         </div>
     </form>
     
-    <a href="./user_posts.php"><button>cancel</button></a> 
+    <a href="./user-posts.php"><button>cancel</button></a> 
       
 <?php include "../components/footer.php"?>

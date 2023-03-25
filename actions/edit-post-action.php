@@ -11,13 +11,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['title'])) {
         $_SESSION['feedback'] = 'Please fill in all input fields';
-        header('Location: ../pages/edit_post.php');
+        header('Location: ../pages/edit-post.php');
         die;
     }
 
     if(empty($_POST['body'])) {
         $_SESSION['feedback'] = 'Please fill in all input fields';
-        header('Location: ../pages/edit_post.php');
+        header('Location: ../pages/edit-post.php');
         die;
     }
     //postID nodig voor te zien welke post we moeten aanpassen
@@ -27,6 +27,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     //Redirect to page met gebruiker naam in hoek
-    header('Location: ../pages/blog_detail.php');
+    header('Location: ../pages/blog-detail.php');
 }
 ?>

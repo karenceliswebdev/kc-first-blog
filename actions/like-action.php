@@ -7,13 +7,13 @@ $sessionExist = checkSessionExists($db);
 if($sessionExist===false) {
     $_SESSION['feedback'] = 'Only loged in users can like a post';
     //alert maken enkel user kunnen post liken: login cancel button
-    header('Location: ../pages/blog_detail.php');
+    header('Location: ../pages/blog-detail.php');
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
-        header('Location: ../pages/blog_detail.php');
+        header('Location: ../pages/blog-detail.php');
         die;
     }
     
@@ -26,13 +26,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         //bestaat -> verwijderen
         deleteLikePost($db, (int)$_SESSION['postId']);
 
-        header('Location: ../pages/blog_detail.php');
+        header('Location: ../pages/blog-detail.php');
         die;
     }   
     //niet bestaat -> toevoegen
     addLikePost($db, (int)$_SESSION['postId']);   
 
     //Redirect to detail page
-    header('Location: ../pages/blog_detail.php');
+    header('Location: ../pages/blog-detail.php');
 }
 ?>

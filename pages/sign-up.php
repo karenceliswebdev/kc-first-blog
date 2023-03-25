@@ -15,7 +15,7 @@ session_start();
         <?php unset($_SESSION['feedback']); ?>
     <?php endif; ?>
     
-    <form method="post" action="../actions/sign_up_action.php">
+    <form method="post" action="../actions/sign-up-action.php">
         <label>email</label><br>
         <input type="text" name ="email" id="email"></input><br>
 

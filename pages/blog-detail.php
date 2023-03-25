@@ -39,7 +39,7 @@ if($sessionExist===true) {
     <!--delete possibility-->
     <?php if($sessionExist===true) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
-            <form action="../actions/delete_post_action.php" method="post">
+            <form action="../actions/delete-post-action.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
                 <button>Delete</button>
             </form>
@@ -49,12 +49,12 @@ if($sessionExist===true) {
     <!--post-->
     <div class="post">
         <h2><?= $post['title']; ?></h2>
-        <img src="../pictures/pic_default.png" alt="">
+        <img src="../pictures/pic-default.png" alt="">
         <p><?= $post['body']; ?></p>     
     </div>
 
     <!--like possibility-->
-    <form action="../actions/like_action.php" method="post">
+    <form action="../actions/like-action.php" method="post">
         <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
         <button style="height:50px; width:50px;">
             <img src="<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            

@@ -19,7 +19,7 @@ $posts = getAllPostsFromUser($db);
     <?php include "../components/nav.php"?>
 
     <?php if($sessionExist===true) : ?>
-        <a href="./add_post.php"><button>Add post</button></a>
+        <a href="./add-post.php"><button>Add post</button></a>
     <?php endif; ?>
 
     <!--recent posts (6)-->
@@ -27,9 +27,9 @@ $posts = getAllPostsFromUser($db);
         <?php if(!(count($posts) === 0)) : ?>
             <?php foreach($posts as $posts) : ?>
                 <h2><?= $posts['title']; ?></h2>
-                <img src="../pictures/pic_default.png" alt="">
+                <img src="../pictures/pic-default.png" alt="">
                 <p><?= readMore($posts['body']); ?></p>
-                <form action="./blog_detail.php" method="post">
+                <form action="./blog-detail.php" method="post">
                     <input type="hidden" name="postId" value="<?= $posts['id']; ?>"/>
                     <button>Read More</button>
                 </form>

@@ -8,13 +8,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
         $_SESSION['feedback'] = 'incorrect registration details';
-        header('Location: ../pages/sign_up.php');
+        header('Location: ../pages/sign-up.php');
         die;
     }
 
     if(empty($_POST['password'])) {
         $_SESSION['feedback'] = 'incorrect registration details';
-        header('Location: ../pages/sign_up.php');
+        header('Location: ../pages/sign-up.php');
         die;
     }
 
@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if($emailExists) {
         $_SESSION['feedback'] = 'User already exist, go to login';
         //toon: email bestaat al
-        header('Location: ../pages/sign_up.php');
+        header('Location: ../pages/sign-up.php');
         die;
     }
       
