@@ -20,7 +20,6 @@ function connectDb(string $user, string $pass, string $db, string $host = 'local
     }
 }
 
-//voor posts te tonen homepage
 function getPosts(PDO $db): array {
 
     $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
@@ -58,7 +57,6 @@ function getAllPostsFromUser(PDO $db): array {
 }
 
 function updatePost($db, string $title, string $body, int $postId): void {    
-// string en title html
 
     $newTitle = htmlspecialchars($title, ENT_QUOTES);
     $newBody = htmlspecialchars($body, ENT_QUOTES);
@@ -74,7 +72,6 @@ function updatePost($db, string $title, string $body, int $postId): void {
 
 }
 
-//zoek eerst user via sessie id (cookie) in db dan voeg je die mee in de query
 function addNewPost(PDO $db, string $title, string $body): void {
 
     $newTitle = htmlspecialchars($title, ENT_QUOTES);
@@ -129,7 +126,6 @@ function checkEmailExists(PDO $db, string $email): bool {
     return false;
 }
 
-//sessie id in db stoppen
 function updateSessionId(PDO $db, string $email): void {
 
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
@@ -156,7 +152,6 @@ function checkSessionExists(PDO $db): bool {
     return false;
 }
 
-//check hash (input pp) = db hash
 function checkUserPasswordCorrect($db, string $email, string $password): bool {
 
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
@@ -178,7 +173,6 @@ function checkUserPasswordCorrect($db, string $email, string $password): bool {
     return true;
 }
 
-//vind user via session id
 function getUser(PDO $db): array {
 
     $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
@@ -189,7 +183,6 @@ function getUser(PDO $db): array {
     return $user = $res->fetch();    
 }
 
-//voeg user toe die zich heeft geregistreerd
 function addNewUser(PDO $db, string $email, string $password): void {
 
     $newEmail = htmlspecialchars($email, ENT_QUOTES);
@@ -295,7 +288,6 @@ function addLikePost(PDO $db, int $postId): void {
 }
 
 function deleteLikePost(PDO $db, int $postId): void {   
-//doe gwn getuser eerst en sttek mee in parameter
 
     $getUserStatement = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
     $getUserStatement->bindParam(':sessionId', $_SESSION['sessionId']);
@@ -303,8 +295,6 @@ function deleteLikePost(PDO $db, int $postId): void {
     $getUserStatement->execute();
 
     $user = $getUserStatement->fetch();
-
-    //
 
     $res = $db->prepare('DELETE FROM likes WHERE user_id = :userId AND post_id = :postId');
     $res->bindParam(':userId', $user['id']);

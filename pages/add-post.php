@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-//doel 1 hoop blogposts maken en deze weergeven op homepage
 include '../helpers/database.php';
 include '../helpers/functions.php';
 
-//checken sessie nog geldig anders redirect to login page
 $sessionExist = checkSessionExists($db);
 
 if($sessionExist===false) {

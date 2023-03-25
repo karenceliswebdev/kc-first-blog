@@ -6,7 +6,7 @@ include '../helpers/database.php';
 include '../helpers/functions.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //werken met sessies anders als je terug redirect van action weet ni meer welke postid ah ja geen post dan gebeurt
+    //werken met sessies anders weet pagina na actie niet meer welke post men moet tonen
     $_SESSION['postId'] = $_POST['postId'];
 }
 

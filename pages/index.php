@@ -13,7 +13,6 @@ $sessionExist = checkSessionExists($db);
 
     <h1>Recent posts</h1>
 
-    <!--recent posts (6)-->
     <?php include "./components/display-posts-teaser.php"?>
 
 <?php include "./components/footer.php"?>

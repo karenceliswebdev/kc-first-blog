@@ -21,8 +21,6 @@ $posts = getAllLikedPostsFromUser($db);
 
     <h1>Liked posts</h1>
 
-    <!--recent posts (6)-->
-    
     <?php include "./components/display-posts-teaser.php"?>
 
 <?php include "./components/footer.php"?>

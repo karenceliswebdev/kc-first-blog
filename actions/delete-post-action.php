@@ -10,11 +10,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/blog-detail.php');
         die;
     }
+    
     $_SESSION['postId'] = ($_POST['postId']);
-
     deletePost($db, (int)$_SESSION['postId']);
 
-    //Redirect to page met gebruiker naam in hoek
     header('Location: ../pages/user-posts.php');
 }
 ?>
