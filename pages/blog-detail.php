@@ -47,7 +47,7 @@ if($sessionExist===true) {
     <?php endif; ?>
 
     <!--post-->
-    <div class="post">
+    <div class="post" style="width: 50%; word-wrap: break-word;">
         <h2><?= $post['title']; ?></h2>
         <img src="../pictures/pic-default.png" alt="">
         <p><?= $post['body']; ?></p>     
