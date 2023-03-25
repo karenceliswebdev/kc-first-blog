@@ -13,14 +13,6 @@ $sessionExist = checkSessionExists($db);
 
     <?php include "./components/feedback.php"?>
 
-    <form method="post" action="../actions/login-action.php">
-        <label for="email">email</label><br>
-        <input type="text" name ="email" id="email"></input><br>
-        <label for="password">password</label><br>
-        <input type="password" name ="password" id="password"></input><br>
-        <button>login</button>
-    </form>
-
-    <p><a href="./sign-up.php">sign up</a></p>
+    <?php include "./components/login-form.php"?>
 
 <?php include "./components/footer.php"?>
