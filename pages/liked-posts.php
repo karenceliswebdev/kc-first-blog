@@ -7,7 +7,7 @@ include '../helpers/functions.php';
 
 $sessionExist = checkSessionExists($db);
 
-if($sessionExist==false) {
+if($sessionExist===false) {
     header('Location: ./login.php');
     die;
 }
