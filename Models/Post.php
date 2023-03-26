@@ -50,6 +50,8 @@ class Post extends Models\DB {
     {
         $now = date('Y-m-d H:i:s');
 
+        //nog checken ik wel owner van post
+
         $res = $this->connect()->prepare('INSERT INTO posts SET user_id = :id, title = :title, body = :body, created_at= :now');
         $addPostStatement->bindParam(':userd', $this->userId);
         $addPostStatement->bindParam(':title', $this->title);
@@ -58,6 +60,25 @@ class Post extends Models\DB {
         $addPostStatement->execute();
 
         $this->id = $this->connect()->lastInsertId(); 
+
+        return $this->id;
+    }
+
+    function update(): int  {
+
+        if(empty($this->id)) {
+
+            throw new \Excemption('No post found');
+        }
+
+        $now = date('Y-m-d H:i:s');
+
+        $res = $this->connect()->prepare('UPDATE posts SET title = :title, body = :body, updated_at = :now WHERE id = :id');
+        $res->bindParam(':title', $this->title);
+        $res->bindParam(':body', $this->body);
+        $res->bindParam(':now', $now);
+        $res->bindParam(':id', $this->id);
+        $res->execute();
 
         return $this->id;
     }
