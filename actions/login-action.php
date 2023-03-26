@@ -21,8 +21,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/login.php');
         die;
     }
-    
-    $emailExists = checkEmailExists($db, $_POST['email']);
+
+    $user = new User();
+    $user->setEmail($_POST['email']);
+    $user->setPassword($_POST['password']);
+    $emailExists = $user->checkEmailExist();
 
     if($emailExists===false) {
         $_SESSION['feedbackColor'] = 'red';
@@ -31,22 +34,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
 
-    //Check input na hashing hetzelfd is als opgeslagen hash in db
-    $passwordIsCorrect = checkUserPasswordCorrect($db, $_POST['email'], $_POST['password']);
+    $passwordCorrect = $user->checkPasswordCorrect();
 
-    if($passwordIsCorrect===false) {
+    if($passwordCorrect===false) {
         $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
     }
 
-    $userSessionId = uniqid();
-    $_SESSION['sessionId'] = $userSessionId;
-    updateSessionId($db, $_POST['email']);
-
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'logged in';
+
+    $user->save();
 
     header('Location: ../pages/index.php');
 }
