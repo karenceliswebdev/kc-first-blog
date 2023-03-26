@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 //include '../helpers/database.php';
 include '../Models/User.php';
-use Models\User;
+
+use Models\DB;//moest db zijn
 
 $session = new User();
 
