@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 include '../Models/User.php';
 
-use Models\DB;//moest db zijn
+use Models\DB;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -22,8 +22,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
 
-    //zien email nog niet ingenomen
-    $emailExists = checkEmailExists($db, $_POST['email']);
+    $user = new User();
+    $user->setEmail($_POST['email']);
+    $user->setPassword($_POST['password']);
+    $emailExists = $user->checkEmailExists();
 
     if($emailExists) {
         $_SESSION['feedbackColor'] = 'red';
@@ -31,9 +33,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/sign-up.php');
         die;
     }
-      
-    addNewUser($db, $_POST['email'], $_POST['password']);
 
+    $user->save();  
     header('Location: ../pages/login.php');
 }
 ?>
