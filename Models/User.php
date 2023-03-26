@@ -1,7 +1,5 @@
 <?php
 
-namespace Models;
-
 include_once('./DB.php');
 
 class User extends DB {
