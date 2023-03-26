@@ -1,7 +1,7 @@
 <?php
 
 include_once('./DB.php');
-
+//denk $this->connect
 class User extends DB {
 
     private int $id;
@@ -56,7 +56,7 @@ class User extends DB {
         $res->bindParam(':hash', $hash);
         $res->execute();
 
-        $this->id = connect()->lastInsertId(); //checken
+        $this->id = connect()->lastInsertId(); //checken connect of $this connect
 
         return $this->id;
     }

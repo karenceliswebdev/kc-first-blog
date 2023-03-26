@@ -6,7 +6,7 @@ include '../Models/User.php';
 
 use Models\DB;//moest db zijn
 
-$session = new User();
+$user = new User();
 
 ?>
 <?php include "./components/head.php"?>
