@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 //include '../helpers/database.php';
+include '../Models/User.php';
+use Models\User;
 
 $session = new User();
 
