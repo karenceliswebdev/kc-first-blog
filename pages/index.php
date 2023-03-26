@@ -9,7 +9,6 @@ use Models\DB;
 $user = new User();
 
 $posts = getPosts($db);
-$sessionExist = checkSessionExists($db);
 ?>
 <?php include "./components/head.php"?>
     
