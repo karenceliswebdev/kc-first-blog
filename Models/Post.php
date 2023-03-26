@@ -36,6 +36,12 @@ class Post extends Models\DB {
         return $this;
     }
 
+    public function get(): array
+    {
+        $res = $db->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
+        return $res->fetchAll(PDO::FETCH_CLASS, "App\Models\Todo"); //uitzoeken
+    }
+
     public function save(): int { 
 
         if(!empty($this->id)) {
