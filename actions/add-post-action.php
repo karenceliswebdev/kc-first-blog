@@ -19,6 +19,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
+    $_SESSION['feedbackColor'] = 'green';
+    $_SESSION['feedback'] = 'new post added';
     addNewPost($db, $_POST['title'], $_POST['body']);
 
     header('Location: ../pages/user-posts.php');
