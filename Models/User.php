@@ -7,11 +7,11 @@ class User extends Models\DB {
     private int $id;
     private string $email;
     private string $hash;
-    private string $sessionId;//twijfel dit tonen
+    //private string $sessionId;//twijfel dit tonen
 
     public function __construct(int $id = null) {
 
-        $this->sessionId = $_SESSION['sessionId'];
+        //$this->sessionId = $_SESSION['sessionId'];
 
         if(!empty($id)) {
 
@@ -83,11 +83,12 @@ class User extends Models\DB {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetch();
+        $user = $res->fetchObject('Models\User');
     
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
             
+            $this->id = $user->id;//belangrijk voor login
             return true;
             die;
         }
