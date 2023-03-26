@@ -18,6 +18,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
+    $_SESSION['feedbackColor'] = 'green';
+    $_SESSION['feedback'] = 'post edited';
     //postID nodig voor te zien welke post we moeten aanpassen
     $_SESSION['postId'] = ($_POST['postId']);
     updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
