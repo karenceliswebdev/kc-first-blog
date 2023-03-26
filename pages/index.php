@@ -9,7 +9,7 @@ use Models\DB;
 
 $user = new User(); //voor sessie
 $post = new Post();
-$post = $post->get();
+$posts = $post->get();
 
 ?>
 <?php include "./components/head.php"?>
