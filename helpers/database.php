@@ -97,11 +97,18 @@ function addNewPost(PDO $db, string $title, string $body): void {
 
 function deletePost(PDO $db, int $postId): void {
 
+    $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_SESSION['sessionId']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+    $user = $res->fetch();
+
     $now = date('Y-m-d H:i:s');
 
-    $deletePostStatement = $db->prepare('UPDATE posts SET deleted_at = :now WHERE id = :postId');
+    $deletePostStatement = $db->prepare('UPDATE posts SET deleted_at = :now WHERE id = :postId AND user_id = :userId');
     $deletePostStatement->bindParam(':now', $now);
     $deletePostStatement->bindParam(':postId', $postId);
+    $deletePostStatement->bindParam(':userId', $user['id']);
     $deletePostStatement->execute();
 }
 
