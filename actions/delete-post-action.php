@@ -10,7 +10,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/blog-detail.php');
         die;
     }
-    
+
+    $_SESSION['feedbackColor'] = 'green';
+    $_SESSION['feedback'] = 'post deleted';
     $_SESSION['postId'] = ($_POST['postId']);
     deletePost($db, (int)$_SESSION['postId']);
 
