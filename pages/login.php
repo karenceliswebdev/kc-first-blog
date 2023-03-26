@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/User.php';
 
-$sessionExist = checkSessionExists($db);
+use Models\DB;//moest db zijn
+
+$user = new User();
 ?>
 <?php include "./components/head.php"?>
 
