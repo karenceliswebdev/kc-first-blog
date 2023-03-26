@@ -24,6 +24,8 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
     
     <?php include "./components/nav.php"?>
 
+    <?php include "./components/feedback.php"?>
+
     <?php if($sessionExist===true) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
             <!--edit possibility-->

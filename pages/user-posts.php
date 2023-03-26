@@ -18,6 +18,8 @@ $posts = getAllPostsFromUser($db);
 
     <?php include "./components/nav.php"?>
 
+    <?php include "./components/feedback.php"?>
+
     <a href="./add-post.php"><button>Add post</button></a>
 
     <!--recent posts (6)-->

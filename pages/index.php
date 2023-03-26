@@ -11,6 +11,8 @@ $sessionExist = checkSessionExists($db);
     
     <?php include "./components/nav.php"?>
 
+    <?php include "./components/feedback.php"?>
+
     <h1>Recent posts</h1>
 
     <?php include "./components/display-posts-teaser.php"?>
