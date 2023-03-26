@@ -62,7 +62,7 @@ class User extends Models\DB {
         return $this->id;
     }
 
-    function update(): void  {
+    function update(): int  {
 
         if(empty($this->id)) {
 
@@ -80,7 +80,7 @@ class User extends Models\DB {
         $res->bindParam(':id', $this->id);
         $res->execute();
 
-        //return->this(id)
+        return $this->id;
     }
 
     //sign up en login
