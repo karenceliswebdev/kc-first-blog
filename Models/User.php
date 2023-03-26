@@ -25,7 +25,7 @@ class User extends Models\DB {
         $res->bindParam('id', $id);
         $res->execute();
 
-        $user = $res->fetchObject('Models\User');//steek het erin als object
+        $user = $res->fetchObject('User');//steek het erin als object
 
         if(!empty($user))
         {
@@ -62,7 +62,7 @@ class User extends Models\DB {
         return $this->id;
     }
 
-    function update()  {
+    function update(): void  {
 
         if(empty($this->id)) {
 
@@ -73,9 +73,11 @@ class User extends Models\DB {
         $_SESSION['sessionId'] = $userSessionId; 
         $this->sessionId =  $_SESSION['sessionId'];
 
-        $res = $this->connect()->prepare('UPDATE users SET session_id = :session WHERE id = :id');
-        $res->bindParam('session_id', $this->sessionId);
-        $res->bindParam('id', $this->id);
+        $res = $this->connect()->prepare('UPDATE users SET email = :email, hash = :hash, session_id = :sessionId WHERE id = :id');
+        $res->bindParam(':email', $this->email);
+        $res->bindParam(':hash', $this->hash);
+        $res->bindParam(':sessionId', $this->sessionId);
+        $res->bindParam(':id', $this->id); //:id van gemaakt, extra parameters toegevoegd
         $res->execute();
 
         //return->this(id)
@@ -103,8 +105,8 @@ class User extends Models\DB {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('Models\User');
-    
+        $user = $res->fetchObject('User'); //verandert ervoor Models/User
+
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
 
@@ -125,7 +127,7 @@ class User extends Models\DB {
     
         $user = $res->fetch();
     
-        if(!password_verify($this->hash, $user['hash'])) {
+        if($this->hash===$user['hash']) {//moet de niet gehashte versie zijn $user = $res->fetchObject('Models\User');
             
             return false;
             die;
@@ -151,5 +153,4 @@ class User extends Models\DB {
     
         return false;
     }
-
 }
