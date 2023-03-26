@@ -52,8 +52,8 @@ class User extends Models\DB {
     {
         //bij login sessie aangemaakt
         $res = $this->connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
-        $res->bindParam(':email', $email);
-        $res->bindParam(':hash', $hash);
+        $res->bindParam(':email', $this->email);
+        $res->bindParam(':hash', $this->hash);
         $res->execute();
 
         $this->id = $this->connect()->lastInsertId(); //checken connect of $this connect
@@ -79,7 +79,7 @@ class User extends Models\DB {
     function checkEmailExist(): bool {
 
         $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
-        $res->bindParam(':email', $email); //of $this er nog voor?
+        $res->bindParam(':email', $this->email); //of $this er nog voor?
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
