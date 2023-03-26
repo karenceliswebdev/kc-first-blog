@@ -7,7 +7,7 @@ class User extends Models\DB {
     private int $id;
     private string $email;
     private string $hash;
-    private string $sessionId;
+    private string $sessionId;//twijfel dit tonen
 
     public function __construct(int $id = null) {
 
@@ -61,7 +61,7 @@ class User extends Models\DB {
         return $this->id;
     }
 
-    //sign up
+    //sign up en login
 
     function setEmail(string $email): void {
         
@@ -69,7 +69,7 @@ class User extends Models\DB {
         $this->email = $email;
     }
 
-    function setPassword(string $password): void {
+    function setPassword(string $password): void { //misschien in 1 steken
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
         $password = password_hash($password, PASSWORD_DEFAULT);
@@ -93,6 +93,24 @@ class User extends Models\DB {
         }
     
         return false;
+    }
+
+    function checkPasswordCorrect(): bool {
+    
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
+        $res->bindParam(':email', $this->email);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+    
+        $user = $res->fetch();
+    
+        if(!password_verify($this->hash, $user['hash'])) {
+            
+            return false;
+            die;
+        }
+    
+        return true;
     }
 
     //sessie

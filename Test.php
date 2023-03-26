@@ -9,7 +9,7 @@ class Test {
     }
 
     function show(): void{
-      echo $this->var;
+      echo $this->var; //this ervoor
     }
 
   }
@@ -18,3 +18,4 @@ class Test {
 $new = new Test();
 $new->fill('ghello');
 $new->show();
+
