@@ -2,13 +2,15 @@
 declare(strict_types=1);
 
 include '../Models/User.php';
+include '../Models/Post.php';
 include '../helpers/functions.php'; 
 
 use Models\DB;
 
-$user = new User();
+$user = new User(); //voor sessie
+$post = new Post();
+$post = $post->get();
 
-$posts = getPosts($db);
 ?>
 <?php include "./components/head.php"?>
     
