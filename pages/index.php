@@ -1,8 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include '../helpers/database.php';
-include '../helpers/functions.php'; //readmore
+include '../helpers/functions.php'; 
 
 $posts = getPosts($db);
 $sessionExist = checkSessionExists($db);
