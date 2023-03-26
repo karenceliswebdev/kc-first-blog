@@ -46,6 +46,22 @@ class Post extends Models\DB {
         return $this->add();
     }
 
+    private function add(): int
+    {
+        $now = date('Y-m-d H:i:s');
+
+        $res = $this->connect()->prepare('INSERT INTO posts SET user_id = :id, title = :title, body = :body, created_at= :now');
+        $addPostStatement->bindParam(':userd', $this->userId);
+        $addPostStatement->bindParam(':title', $this->title);
+        $addPostStatement->bindParam(':body', $this->body);
+        $addPostStatement->bindParam(':now', $now);
+        $addPostStatement->execute();
+
+        $this->id = $this->connect()->lastInsertId(); 
+
+        return $this->id;
+    }
+
 
 
 }
