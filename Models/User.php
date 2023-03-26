@@ -7,7 +7,7 @@ class User extends Models\DB {
     private int $id;
     private string $email;
     private string $hash;
-    //private string $sessionId;//twijfel dit tonen
+    private string $sessionId;//twijfel dit tonen
 
     public function __construct(int $id = null) {
 
@@ -32,6 +32,7 @@ class User extends Models\DB {
             $this->id = $user->id;
             $this->email = $user->email;
             $this->hash = $user->hash;
+            $this->sessionId= $user->session_id;//dan _ of sessionId
         }
 
         return $this;
@@ -61,6 +62,25 @@ class User extends Models\DB {
         return $this->id;
     }
 
+    function update()  {
+
+        if(empty($this->id)) {
+
+            throw new \Excemption('No user found');
+        }
+
+        $userSessionId = uniqid();
+        $_SESSION['sessionId'] = $userSessionId; 
+        $this->sessionId =  $_SESSION['sessionId'];
+
+        $res = $this->connect()->prepare('UPDATE users SET session_id = :session WHERE id = :id');
+        $res->bindParam('session_id', $this->sessionId);
+        $res->bindParam('id', $this->id);
+        $res->execute();
+
+        //return->this(id)
+    }
+
     //sign up en login
 
     function setEmail(string $email): void {
@@ -87,7 +107,7 @@ class User extends Models\DB {
     
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
-            
+
             $this->id = $user->id;//belangrijk voor login
             return true;
             die;
