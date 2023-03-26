@@ -72,7 +72,7 @@ class User extends Models\DB {
     function setPassword(string $password): void {
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
-        password_hash($password, PASSWORD_DEFAULT);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $this->hash = $password;
     }
 
