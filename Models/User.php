@@ -37,5 +37,16 @@ class User extends DB {
         }
 
         return $this;
-    }   
+    }
+    
+    public function save(): int { //id teruggeven van die save
+
+        //heeft object id update, geen id ne nieuwe
+        if(!empty($this->id)) {
+
+            return $this->update();
+        }
+
+        return $this->add();
+    }
 }
