@@ -7,12 +7,14 @@ include '../helpers/database.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
+        $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
     }
 
     if(empty($_POST['password'])) {
+        $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
@@ -21,6 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailExists = checkEmailExists($db, $_POST['email']);
 
     if($emailExists===false) {
+        $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'User does not exist, got to sign up';
         header('Location: ../pages/login.php');
         die;
@@ -30,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passwordIsCorrect = checkUserPasswordCorrect($db, $_POST['email'], $_POST['password']);
 
     if($passwordIsCorrect===false) {
+        $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
         die;
@@ -38,6 +42,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userSessionId = uniqid();
     $_SESSION['sessionId'] = $userSessionId;
     updateSessionId($db, $_POST['email']);
+
+    $_SESSION['feedbackColor'] = 'green';
+    $_SESSION['feedback'] = 'logged in';
 
     header('Location: ../pages/index.php');
 }

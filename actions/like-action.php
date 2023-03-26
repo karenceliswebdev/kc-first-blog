@@ -5,6 +5,7 @@ include '../helpers/database.php';
 $sessionExist = checkSessionExists($db);
 
 if($sessionExist===false) {
+    $_SESSION['feedbackColor'] = 'red';
     $_SESSION['feedback'] = 'Only loged in users can like a post';
     header('Location: ../pages/blog-detail.php');
 }
