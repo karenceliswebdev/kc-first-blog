@@ -11,8 +11,8 @@ $sessionExist = checkSessionExists($db);
 
     <h1>Login</h1>
 
-    <?php include "./components/feedback.php"?>
-
     <?php include "./components/login-form.php"?>
+
+    <?php include "./components/feedback.php"?>
 
 <?php include "./components/footer.php"?>
