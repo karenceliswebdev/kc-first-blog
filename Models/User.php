@@ -1,6 +1,6 @@
 <?php
 
-include_once('./DB.php');
+include_once('../Models/DB.php');
 //denk $this->connect
 class User extends DB {
 
