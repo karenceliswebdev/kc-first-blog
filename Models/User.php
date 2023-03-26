@@ -77,7 +77,7 @@ class User extends Models\DB {
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
         $res->bindParam(':sessionId', $this->sessionId);
-        $res->bindParam(':id', $this->id); //:id van gemaakt, extra parameters toegevoegd
+        $res->bindParam(':id', $this->id);
         $res->execute();
 
         //return->this(id)
