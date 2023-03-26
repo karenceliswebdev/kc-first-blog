@@ -49,4 +49,70 @@ class User extends DB {
 
         return $this->add();
     }
+
+    private function add(): int
+    {
+        //bij login sessie aangemaakt
+        $res = $conn->prepare('INSERT INTO users SET email = :email, hash = :hash');
+        $res->bindParam(':email', $email);
+        $res->bindParam(':hash', $hash);
+        $res->execute();
+
+        $this->id = $conn->lastInsertId(); //checken
+
+        return $this->id;
+    }
+
+    //sign up
+
+    function setEmail(string $email): void {
+        
+        $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $this->email = $email;
+    }
+
+    function setPassword(string $password): void {
+        
+        $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
+        password_hash($password, PASSWORD_DEFAULT);
+        $this->hash = $password;
+    }
+
+    function checkEmailExist(): bool {
+
+        $res = $conn->prepare('SELECT * FROM users WHERE email = :email');
+        $res->bindParam(':email', $email); //of $this er nog voor?
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+    
+        $user = $res->fetch();
+    
+        //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
+        if($user) {
+            
+            return true;
+            die;
+        }
+    
+        return false;
+    }
+
+    //sessie
+
+    function findSession(): bool {
+
+        $res = $conn->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+        $res->bindParam(':sessionId', $_SESSION['sessionId']);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+        $user = $res->fetch();
+    
+        if($user) {
+            return true;
+            die;
+        }
+    
+        return false;
+    }
+
 }
