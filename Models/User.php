@@ -2,7 +2,7 @@
 
 include_once('../Models/DB.php');
 //denk $this->connect
-class User extends DB {
+class User extends Models\DB {
 
     private int $id;
     private string $email;
