@@ -36,6 +36,16 @@ class Post extends Models\DB {
         return $this;
     }
 
+    public function save(): int { 
+
+        if(!empty($this->id)) {
+
+            return $this->update();
+        }
+
+        return $this->add();
+    }
+
 
 
 }
