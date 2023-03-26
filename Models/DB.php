@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+session_start();
+
 class DB {
 
     private $host_name;
@@ -32,3 +34,4 @@ class DB {
         return $this->conn;
     }       
 }
+
