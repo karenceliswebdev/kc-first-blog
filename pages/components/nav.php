@@ -1,10 +1,10 @@
 <ul>
-    <?php if($sessionExist===false) : ?>
+    <?php if($session->findSession()===false) : ?>
         <li><a href="./index.php">recent posts</a></li>
         <li><a href="./login.php">log in</a></li>
     <?php endif;?>
 
-    <?php if($sessionExist===true) : ?>
+    <?php if($session->findSession()===true) : ?>
         <li><a href="./index.php">recent posts</a></li>
         <li><a href="./user-posts.php">your posts</a></li>
         <li><a href="./liked-posts.php">liked posts</a></li>
