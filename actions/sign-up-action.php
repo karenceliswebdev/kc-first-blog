@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new User();
     $user->setEmail($_POST['email']);
     $user->setPassword($_POST['password']);
-    $emailExists = $user->checkEmailExists();
+    $emailExists = $user->checkEmailExist();
 
     if($emailExists) {
         $_SESSION['feedbackColor'] = 'red';

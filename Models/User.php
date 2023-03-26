@@ -56,7 +56,7 @@ class User extends Models\DB {
         $res->bindParam(':hash', $hash);
         $res->execute();
 
-        $this->id = connect()->lastInsertId(); //checken connect of $this connect
+        $this->id = $this->connect()->lastInsertId(); //checken connect of $this connect
 
         return $this->id;
     }
