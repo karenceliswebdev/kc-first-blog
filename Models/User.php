@@ -21,7 +21,7 @@ class User extends Models\DB {
 
     public function find(int $id): User {  
     
-        $res = connect()->prepare('SELECT * FROM users WHERE id = :id');
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE id = :id');
         $res->bindParam('id', $id);
         $res->execute();
 
@@ -51,7 +51,7 @@ class User extends Models\DB {
     private function add(): int
     {
         //bij login sessie aangemaakt
-        $res = connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
+        $res = $this->connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
         $res->bindParam(':email', $email);
         $res->bindParam(':hash', $hash);
         $res->execute();
@@ -78,7 +78,7 @@ class User extends Models\DB {
 
     function checkEmailExist(): bool {
 
-        $res = connect()->prepare('SELECT * FROM users WHERE email = :email');
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
         $res->bindParam(':email', $email); //of $this er nog voor?
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
@@ -99,7 +99,7 @@ class User extends Models\DB {
 
     function findSession(): bool {
 
-        $res = connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
         $res->bindParam(':sessionId', $_SESSION['sessionId']);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
