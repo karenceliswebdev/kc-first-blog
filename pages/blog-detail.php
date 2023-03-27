@@ -27,12 +27,12 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
         <?php if($post->getUserId()===$user->getId()) : ?>
             <!--edit possibility-->
             <form action="./edit-post.php" method="post">
-                <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+                <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
                 <button>Edit</button>
             </form>
             <!--delete possibility-->
             <form action="../actions/delete-post-action.php" method="post">
-                <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+                <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
                 <button>Delete</button>
             </form>
         <?php endif; ?>
@@ -40,14 +40,14 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
     <!--post-->
     <div class="post" style="width: 50%; word-wrap: break-word;">
-        <h2><?= $post['title']; ?></h2>
+        <h2><?= $post->getTitle(); ?></h2>
         <img src="../pictures/pic-default.png" alt="">
-        <p><?= $post['body']; ?></p>     
+        <p><?= $post->getBody(); ?></p>     
     </div>
 
     <!--like possibility-->
     <form action="../actions/like-action.php" method="post">
-        <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+        <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
         <button style="height:50px; width:50px;">
             <img src="<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
