@@ -14,15 +14,15 @@ class DB {
 
     protected function connect(): object
     {
-        $host_name = 'localhost';
-        $db_name = 'first_blog_kc';
-        $username = 'root';
-        $password = 'root';
+        $this->host_name = 'localhost';
+        $this->db_name = 'first_blog_kc';
+        $this->username = 'root';
+        $this->password = 'root';
 
         if(!($this->conn)) {
 
             try {
-                $this->conn = new PDO("mysql:host=$host_name;dbname=$db_name", $username, $password);
+                $this->conn = new PDO("mysql:host=" .$this->host_name. ";dbname=" .$this->db_name. ";", $this->username, $this->password);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (Exception $exception) {
                 echo $exception->getMessage();
