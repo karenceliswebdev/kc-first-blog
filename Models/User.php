@@ -118,7 +118,6 @@ class User extends Models\DB {
         return false;
     }
 
-
     function checkPasswordCorrect(): bool {
     
         $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
@@ -135,23 +134,5 @@ class User extends Models\DB {
         }
 
         return true;
-    }
-
-    function findSession() {
-
-        $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
-    $res->bindParam(':sessionId', $_SESSION['sessionId']);
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-    $user = $res->fetch();
-
-    if($user) {
-        return true;
-        die;
-    }
-
-    return false;
-
-
     }
 }
