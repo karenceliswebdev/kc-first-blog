@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
-include '../helpers/functions.php';
+include '../Models/User.php';
+include '../Models/Post.php';
+
+use Models\DB;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //werken met sessies anders weet pagina na actie niet meer welke post men moet tonen
-    $_SESSION['postId'] = $_POST['postId'];
+
+    $post = new Post($_POST['postId']);
 }
 
 $post = getPostDetailPage($db, (int)$_SESSION['postId']);
