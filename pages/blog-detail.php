@@ -14,10 +14,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $user = new User();
 
-if($sessionExist===true) {
-    $user = getUser($db); 
-}
-
 $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
 ?>
