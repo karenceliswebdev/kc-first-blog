@@ -17,6 +17,12 @@ class User extends Models\DB {
 
             $this->find($id);
         }
+
+        if(!empty($_SESSION['sessionId'])) {//
+
+            $this->sessionId = $_SESSION['sessionId'];
+            $this->findSession();
+        }
     }
 
     public function find(int $id): User {  
@@ -32,7 +38,26 @@ class User extends Models\DB {
             $this->id = $user->id;
             $this->email = $user->email;
             $this->hash = $user->hash;
-            $this->sessionId= $user->session_id;//dan _ of sessionId
+            $this->sessionId= $user->session_id;
+        }
+
+        return $this;
+    }
+
+    public function findSession(): User {  //
+    
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+        $res->bindParam(':sessionId', $this->sessionId);
+        $res->execute();
+
+        $user = $res->fetchObject('User');
+
+        if(!empty($user))
+        {
+            $this->id = $user->id;
+            $this->email = $user->email;
+            $this->hash = $user->hash;
+            $this->sessionId= $user->session_id;
         }
 
         return $this;
@@ -136,7 +161,21 @@ class User extends Models\DB {
         return true;
     }
 
-    function getLikes(): array {
-        
-    }
+    function checkLikePost(int $postId = null): array {
+
+        $res = $this->connect()->prepare('SELECT * FROM likes WHERE user_id = :userId');
+        $res->bindParam(':userId', $user->id);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+
+        $likedPosts = $res->fetchAll();
+    
+        if(in_array($postId, $likedPosts)) {
+
+            return true;
+            die;
+        }
+    
+        return false;
+    }  
 }
