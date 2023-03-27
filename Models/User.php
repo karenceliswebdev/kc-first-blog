@@ -101,7 +101,7 @@ class User extends Models\DB {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
 
-        $user = $res->fetchObject('User'); //verandert ervoor Models/User
+        $user = $res->fetch();
 
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
@@ -132,7 +132,7 @@ class User extends Models\DB {
 
         $_SESSION['sessionId'] = uniqid(); 
         $this->sessionId = $_SESSION['sessionId'];
-        
+
         return true;
     }
 
