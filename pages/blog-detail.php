@@ -12,7 +12,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post = new Post($_POST['postId']);
 }
 
-
 $user = new User();
 
 if($sessionExist===true) {
@@ -28,7 +27,7 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
     <?php include "./components/feedback.php"?>
 
-    <?php if($sessionExist===true) : ?>
+    <?php if($user->findSession()) : ?>
         <?php if($post['user_id']===$user['id']) : ?>
             <!--edit possibility-->
             <form action="./edit-post.php" method="post">
