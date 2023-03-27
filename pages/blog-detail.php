@@ -23,8 +23,8 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
 
     <?php include "./components/feedback.php"?>
 
-    <?php if($user->findSession()) : ?>
-        <?php if($post['user_id']===$user['id']) : ?>
+    <?php if(isset($_SESSION['sessionId'])) : ?>
+        <?php if($post->getUserId()===$user->getId()) : ?>
             <!--edit possibility-->
             <form action="./edit-post.php" method="post">
                 <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
