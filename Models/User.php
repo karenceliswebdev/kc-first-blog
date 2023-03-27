@@ -97,6 +97,9 @@ class User extends Models\DB {
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
         $this->password = $password;
+
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);//
+        $this->hash = $hash;
     }
 
     function checkEmailExist(): bool {
@@ -132,9 +135,10 @@ class User extends Models\DB {
             die;
         }
 
-        $hash = password_hash($this->password, PASSWORD_DEFAULT);
-        $this->hash = $hash;
-
         return true;
+    }
+
+    function findSession() {
+
     }
 }
