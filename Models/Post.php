@@ -94,6 +94,11 @@ class Post extends Models\DB {
         return $this->id;
     }
 
+    public function getUserId(): int{
+
+        return $this->userId;
+    }
+
     public function getTitle(): string{
 
         return $this->title;
