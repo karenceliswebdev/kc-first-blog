@@ -7,7 +7,9 @@ class User extends Models\DB {
     private int $id;
     private string $email;
     private string $hash;
-    private string $sessionId;//twijfel dit tonen
+    private string $sessionId;
+
+    private string $password;
 
     public function __construct(int $id = null) {
 
@@ -94,18 +96,17 @@ class User extends Models\DB {
     function setPassword(string $password): void { //misschien in 1 steken
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->hash = $password;
+        $this->password = $password;
     }
 
     function checkEmailExist(): bool {
 
         $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
-        $res->bindParam(':email', $this->email); //of $this er nog voor?
+        $res->bindParam(':email', $this->email); 
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetch(); //verandert ervoor Models/User
+        $user = $res->fetch();
 
         if($user) {
 
