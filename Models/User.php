@@ -107,10 +107,8 @@ class User extends Models\DB {
     
         $user = $res->fetchObject('User'); //verandert ervoor Models/User
 
-        //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
 
-            $this->id = $user->id;//belangrijk voor login
             return true;
             die;
         }
