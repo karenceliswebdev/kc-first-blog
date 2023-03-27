@@ -13,8 +13,6 @@ class User extends Models\DB {
 
     public function __construct(int $id = null) {
 
-        //$this->sessionId = $_SESSION['sessionId'];
-
         if(!empty($id)) {
 
             $this->find($id);
@@ -24,7 +22,7 @@ class User extends Models\DB {
     public function find(int $id): User {  
     
         $res = $this->connect()->prepare('SELECT * FROM users WHERE id = :id');
-        $res->bindParam('id', $id);
+        $res->bindParam(':id', $id);
         $res->execute();
 
         $user = $res->fetchObject('User');//steek het erin als object
@@ -53,13 +51,12 @@ class User extends Models\DB {
 
     private function add(): int
     {
-        //bij login sessie aangemaakt
         $res = $this->connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
         $res->execute();
 
-        $this->id = $this->connect()->lastInsertId(); //checken connect of $this connect
+        $this->id = $this->connect()->lastInsertId(); 
 
         return $this->id;
     }
@@ -105,20 +102,23 @@ class User extends Models\DB {
     function checkEmailExist(): bool {
 
         $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
-        $res->bindParam(':email', $this->email); 
+        $res->bindParam(':email', $this->email); //of $this er nog voor?
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetch();
+        $user = $res->fetchObject('User'); //verandert ervoor Models/User
 
+        //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
 
+            $this->id = $user->id;//belangrijk voor login
             return true;
             die;
         }
     
         return false;
     }
+
 
     function checkPasswordCorrect(): bool {
     
