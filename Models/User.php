@@ -22,7 +22,7 @@ class User extends Models\DB {
     public function find(int $id): User {  
     
         $res = $this->connect()->prepare('SELECT * FROM users WHERE id = :id');
-        $res->bindParam(':id', $id);
+        $res->bindParam('id', $id);
         $res->execute();
 
         $user = $res->fetchObject('User');//steek het erin als object
@@ -37,7 +37,7 @@ class User extends Models\DB {
 
         return $this;
     }
-    
+
     public function save(): int { //id teruggeven van die save
 
         //heeft object id update, geen id ne nieuwe
@@ -58,7 +58,7 @@ class User extends Models\DB {
 
         $this->id = $this->connect()->lastInsertId(); 
 
-        return $this->id;
+        return $this->id; //heeft dit eig nut dit stuk zonder this in checkemail werkt het ni
     }
 
     function update(): int  {
@@ -68,8 +68,7 @@ class User extends Models\DB {
             throw new \Excemption('No user found');
         }
 
-        $userSessionId = uniqid();
-        $_SESSION['sessionId'] = $userSessionId; 
+        $_SESSION['sessionId'] = uniqid(); 
         $this->sessionId =  $_SESSION['sessionId'];
 
         $res = $this->connect()->prepare('UPDATE users SET email = :email, hash = :hash, session_id = :sessionId WHERE id = :id');
@@ -139,6 +138,20 @@ class User extends Models\DB {
     }
 
     function findSession() {
+
+        $res = $db->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+    $res->bindParam(':sessionId', $_SESSION['sessionId']);
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+    $user = $res->fetch();
+
+    if($user) {
+        return true;
+        die;
+    }
+
+    return false;
+
 
     }
 }
