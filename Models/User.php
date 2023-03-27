@@ -105,7 +105,7 @@ class User extends Models\DB {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('User'); //verandert ervoor Models/User
+        $user = $res->fetch(); //verandert ervoor Models/User
 
         if($user) {
 
