@@ -14,8 +14,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $user = new User();
 
-$userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
-
 ?>
 <?php include "./components/head.php"?>
     
@@ -49,7 +47,7 @@ $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
     <form action="../actions/like-action.php" method="post">
         <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
         <button style="height:50px; width:50px;">
-            <img src="<?= $userLikedPost ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
+            <img src="<?= checkLikePost($post->getId()) ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
     </form>
     
