@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-$sessionExist = checkSessionExists($db);
+$user = new User();
 
 if($sessionExist===true) {
     $user = getUser($db); 
