@@ -59,11 +59,11 @@ class Post extends Models\DB {
         //nog checken ik wel owner van post
 
         $res = $this->connect()->prepare('INSERT INTO posts SET user_id = :id, title = :title, body = :body, created_at= :now');
-        $addPostStatement->bindParam(':userd', $this->userId);
-        $addPostStatement->bindParam(':title', $this->title);
-        $addPostStatement->bindParam(':body', $this->body);
-        $addPostStatement->bindParam(':now', $now);
-        $addPostStatement->execute();
+        $res->bindParam(':userd', $this->userId);
+        $res->bindParam(':title', $this->title);
+        $res->bindParam(':body', $this->body);
+        $res->bindParam(':now', $now);
+        $res->execute();
 
         $this->id = $this->connect()->lastInsertId(); 
 
