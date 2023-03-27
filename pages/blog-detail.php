@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $post = new Post($_POST['postId']);
 }
 
-$post = getPostDetailPage($db, (int)$_SESSION['postId']);
+
 $sessionExist = checkSessionExists($db);
 
 if($sessionExist===true) {
