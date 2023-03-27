@@ -9,7 +9,7 @@ use Models\DB;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $post = new Post($_POST['postId']);
+    $post = new Post((int)$_POST['postId']);
 }
 
 $user = new User();
