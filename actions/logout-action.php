@@ -1,8 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
-include '../helpers/database.php';
+session_start();
 
 session_destroy();
 

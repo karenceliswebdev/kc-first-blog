@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'logged in';
-
+    
     $user->save();
 
     header('Location: ../pages/index.php');
