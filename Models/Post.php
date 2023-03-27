@@ -36,12 +36,6 @@ class Post extends Models\DB {
         return $this;
     }
 
-    public function get(): array
-    {
-        $res = $this->connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
-        return $res->fetchAll(PDO::FETCH_CLASS, "Post"); //uitzoeken
-    }
-
     public function save(): int { 
 
         if(!empty($this->id)) {
@@ -89,6 +83,24 @@ class Post extends Models\DB {
         return $this->id;
     }
 
+    public function get(): array
+    {
+        $res = $this->connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
+        return $res->fetchAll(PDO::FETCH_CLASS, "Post"); //uitzoeken
+    }
 
+    public function getId(): int{
 
+        return $this->id;
+    }
+
+    public function getTitle(): string{
+
+        return $this->title;
+    }
+
+    public function getBody(): string{
+
+        return $this->body;
+    }
 }
