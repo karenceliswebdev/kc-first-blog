@@ -132,6 +132,9 @@ class User extends Models\DB {
             die;
         }
 
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->hash = $hash;
+
         return true;
     }
 }
