@@ -135,4 +135,8 @@ class User extends Models\DB {
 
         return true;
     }
+
+    function getLikes(): array {
+        
+    }
 }
