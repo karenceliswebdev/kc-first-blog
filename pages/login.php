@@ -1,11 +1,6 @@
 <?php
 declare(strict_types=1);
 
-include '../Models/User.php';
-
-use Models\DB;//moest db zijn
-
-$user = new User();
 ?>
 <?php include "./components/head.php"?>
 
