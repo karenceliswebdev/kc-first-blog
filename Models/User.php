@@ -7,22 +7,23 @@ class User extends Models\DB {
     private int $id;
     private string $email;
     private string $hash;
-    private string $sessionId;//twijfel dit tonen
+    private string $sessionId;
 
-    public function __construct(int $id = null) {
+    private string $password;
 
-        //$this->sessionId = $_SESSION['sessionId'];
+    public function __construct() {
 
-        if(!empty($id)) {
+        if(!empty($_SESSION['sessionId'])) {
 
-            $this->find($id);
+            $this->sessionId = $_SESSION['sessionId'];
+            $this->find($sessionId);
         }
     }
 
-    public function find(int $id): User {  
+    public function find(string $sessionId): User {  
     
-        $res = $this->connect()->prepare('SELECT * FROM users WHERE id = :id');
-        $res->bindParam('id', $id);
+        $res = $this->connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+        $res->bindParam(':sessionId', $sessionId);
         $res->execute();
 
         $user = $res->fetchObject('User');//steek het erin als object
@@ -32,7 +33,7 @@ class User extends Models\DB {
             $this->id = $user->id;
             $this->email = $user->email;
             $this->hash = $user->hash;
-            $this->sessionId= $user->session_id;//dan _ of sessionId
+            $this->sessionId= $user->session_id;
         }
 
         return $this;
@@ -69,10 +70,6 @@ class User extends Models\DB {
             throw new \Excemption('No user found');
         }
 
-        $userSessionId = uniqid();
-        $_SESSION['sessionId'] = $userSessionId; 
-        $this->sessionId =  $_SESSION['sessionId'];
-
         $res = $this->connect()->prepare('UPDATE users SET email = :email, hash = :hash, session_id = :sessionId WHERE id = :id');
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
@@ -94,23 +91,21 @@ class User extends Models\DB {
     function setPassword(string $password): void { //misschien in 1 steken
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->hash = $password;
+        $this->password = $password;
     }
 
     function checkEmailExist(): bool {
 
         $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
-        $res->bindParam(':email', $this->email); //of $this er nog voor?
+        $res->bindParam(':email', $this->email); 
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
-    
+
         $user = $res->fetchObject('User'); //verandert ervoor Models/User
 
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
 
-            $this->id = $user->id;//belangrijk voor login
             return true;
             die;
         }
@@ -127,12 +122,17 @@ class User extends Models\DB {
     
         $user = $res->fetch();
     
-        if($this->hash===$user['hash']) {//moet de niet gehashte versie zijn $user = $res->fetchObject('Models\User');
+        if(!password_verify($this->password, $user['hash'])) {
             
             return false;
             die;
         }
-    
+
+        $this->hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $_SESSION['sessionId'] = uniqid(); 
+        $this->sessionId = $_SESSION['sessionId'];
+        
         return true;
     }
 
