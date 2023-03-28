@@ -14,8 +14,19 @@ if(empty($_SESSION['sessionId'])) {
     die;
 }
 
-$posts = getAllLikedPostsFromUser($db);
+$user = new User();
+$user->findSession();
 
+$post = new Post();
+$all = $post->get();
+$posts = [];
+
+foreach($all as $nr => $one) {
+
+    if($user->checkLikePost($one->getId())) {
+        array_push($posts, $one);
+    }
+}
 ?>
 <?php include "./components/head.php"?>
     

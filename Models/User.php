@@ -186,4 +186,17 @@ class User {
 
         return $this->id;
     }
+
+    public function getLikes(): array{
+
+        $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
+        $res->bindParam(':userId', $this->id);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+        
+        $res->fetchAll(PDO::FETCH_OBJ);
+
+        return $res->fetchAll(PDO::FETCH_OBJ);
+    }
+
 }
