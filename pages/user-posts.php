@@ -2,17 +2,21 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
 include '../helpers/functions.php';
+include '../Models/User.php';
 
-$sessionExist = checkSessionExists($db);
+use Models\User;
 
-if($sessionExist===false) {
+if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;
 }
 
-$posts = getAllPostsFromUser($db);
+$user = new User();
+$user->findSession();
+
+$posts = $user->getPosts();
+
 ?>
 <?php include "./components/head.php"?>
 
