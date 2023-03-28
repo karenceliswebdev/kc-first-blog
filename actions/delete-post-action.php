@@ -8,6 +8,7 @@ include '../Models/Post.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
+        $_SESSION['feedback'] = 'no post selected';//
         header('Location: ../pages/blog-detail.php');
         die;
     }
