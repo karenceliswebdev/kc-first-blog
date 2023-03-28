@@ -20,13 +20,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     //checken wel mijn post
+    $post = new Post((int)$_SESSION['postId']);
+    $user = new User();
+    $user->findSession();
 
+    updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'post edited';
-    //postID nodig voor te zien welke post we moeten aanpassen
-    $_SESSION['postId'] = ($_POST['postId']);
-    updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     header('Location: ../pages/blog-detail.php');
 }
