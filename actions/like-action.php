@@ -5,8 +5,6 @@ declare(strict_types=1);
 include '../Models/User.php';
 include '../Models/Post.php';
 
-
-
 if(empty($_SESSION['sessionId'])) {
     $_SESSION['feedbackColor'] = 'red';
     $_SESSION['feedback'] = 'Only logged in users can like a post';

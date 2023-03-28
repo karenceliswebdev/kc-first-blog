@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 include '../Models/User.php';
 
-
-
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
