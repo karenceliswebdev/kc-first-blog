@@ -187,14 +187,12 @@ class User {
         return $this->id;
     }
 
-    public function getLikes(): array{
+    public function getPosts(): array{
 
-        $res = $db->prepare('SELECT * FROM likes WHERE user_id = :userId');
+        $res = DB::connect()->prepare('SELECT * FROM posts WHERE user_id = :userId AND deleted_at IS NULL ORDER BY created_at DESC;');
         $res->bindParam(':userId', $this->id);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
-        
-        $res->fetchAll(PDO::FETCH_OBJ);
 
         return $res->fetchAll(PDO::FETCH_OBJ);
     }
