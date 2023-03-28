@@ -52,7 +52,7 @@ $user = new User();
         </button>
     </form>
     
-    <p><?= showLikes($db, (int)$_SESSION['postId']); ?></p>
+    <p><?= $post->findLikes(); ?></p>
 
     <?php include "./components/feedback.php"?>
 
