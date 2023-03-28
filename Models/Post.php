@@ -90,18 +90,18 @@ class Post {
         return $this->id;
     }
 
-    function setUser(int $userId): void {
+    public function setUser(int $userId): void {
         
         $this->userId = $userId;
     }
 
-    function setTitle(string $title): void {
+    public function setTitle(string $title): void {
         
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $this->title = $title;
     }
 
-    function setBody(string $body): void {
+    public function setBody(string $body): void {
         
         $body = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
         $this->body = $body;
