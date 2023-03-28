@@ -31,9 +31,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new User();
     $user->findSession();
 
+    $post = new Post();
+    $post->setUser($user->getId());
+    $post->setTitle($_POST['title']);
+    $post->setBody($_POST['body']);
+    $post->save();
+
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'new post added';
-    addNewPost($db, $_POST['title'], $_POST['body']);
 
     header('Location: ../pages/user-posts.php');
 }
