@@ -5,7 +5,8 @@ declare(strict_types=1);
 include '../Models/User.php';
 include '../Models/Post.php';
 
-use Models\DB;
+use Models\User;
+use Models\Post;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -47,7 +48,7 @@ $user = new User();
     <form action="../actions/like-action.php" method="post">
         <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
         <button style="height:50px; width:50px;">
-            <img src="<?= checkLikePost($post->getId()) ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
+            <img src="<?= $user->checkLikePost($post->getId()) ? '../pictures/heart-full.svg' : '../pictures/heart-empty.svg'; ?>" alt="heart">            
         </button>
     </form>
     

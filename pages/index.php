@@ -5,9 +5,10 @@ include '../Models/User.php';
 include '../Models/Post.php';
 include '../helpers/functions.php'; 
 
-use Models\DB;
+use Models\User;
+use Models\Post;
 
-$user = new User(); //voor sessie
+$user = new User(); 
 $post = new Post();
 $posts = $post->get();
 
