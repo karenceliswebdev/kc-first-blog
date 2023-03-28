@@ -63,6 +63,16 @@ class Post {
         return $this->id;
     }
 
+    private function delete(): void {
+        
+        $now = date('Y-m-d H:i:s');
+
+        $res = DB::connect()->prepare('UPDATE posts SET deleted_at = :now WHERE id = :postId');
+        $res->bindParam(':now', $now);
+        $res->bindParam(':postId', $this->id);
+        $res->execute();
+    }
+
     function update(): int  {
 
         if(empty($this->id)) {
