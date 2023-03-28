@@ -9,18 +9,16 @@ use Models\User;
 use Models\Post;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $post = new Post((int)$_POST['postId']);
+    $_SESSION['postId'] = $_POST['postId'];//
 }
 
+$post = new Post((int)$_SESSION['postId']);
 $user = new User();
 
 ?>
 <?php include "./components/head.php"?>
     
     <?php include "./components/nav.php"?>
-
-    <?php include "./components/feedback.php"?>
 
     <?php if(isset($_SESSION['sessionId'])) : ?>
         <?php if($post->getUserId()===$user->getId()) : ?>
