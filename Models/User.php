@@ -9,7 +9,7 @@ class User {
     private string $email;
     private string $hash;
     private string $sessionId;
-     private string $password;
+    private string $password;
 
     public function __construct(int $id = null) {
 
@@ -100,13 +100,13 @@ class User {
         return $this->id;
     }
 
-    function setEmail(string $email): void {
+    public function setEmail(string $email): void {
         
         $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
         $this->email = $email;
     }
 
-    function setPassword(string $password): void { 
+    public function setPassword(string $password): void { 
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
         $this->password = $password;
@@ -115,7 +115,7 @@ class User {
         $this->hash = $hash;
     }
 
-    function checkEmailExist(): bool {
+    public function checkEmailExist(): bool {
         
         $res = DB::connect()->prepare('SELECT * FROM users WHERE email = :email');
         $res->bindParam(':email', $this->email); 
@@ -134,7 +134,7 @@ class User {
         return false;
     }
 
-    function checkPasswordCorrect(): bool {
+    public function checkPasswordCorrect(): bool {
     
         $res = DB::connect()->prepare('SELECT * FROM users WHERE email = :email');
         $res->bindParam(':email', $this->email);
@@ -152,7 +152,7 @@ class User {
         return true;
     }
 
-    function checkLikePost(int $postId): bool {
+    public function checkLikePost(int $postId): bool {
 
         if(empty($_SESSION['sessionId'])) {
             return false;
