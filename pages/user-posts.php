@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 include '../helpers/functions.php';
 include '../Models/User.php';
+include '../Models/Post.php';
 
 use Models\User;
+use Models\Post;
 
 if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
@@ -15,7 +17,8 @@ if(empty($_SESSION['sessionId'])) {
 $user = new User();
 $user->findSession();
 
-$posts = $user->getPosts();
+$post = new Post();
+$posts = $post->getPostsUser($user->getId());
 
 ?>
 <?php include "./components/head.php"?>
