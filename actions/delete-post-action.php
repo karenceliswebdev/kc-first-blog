@@ -13,10 +13,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
 
+    $post = new Post((int)$_POST['postId']);//
+    $user = new User();
+    $user->findSession();
+
+    if($user->getId() !== $post->getUserId()) {
+        $_SESSION['feedback'] = "You can only delete your own post";
+        header('Location: ../pages/index.php');
+        die;
+    }
+
+    $post->delete();
+    $post->save();
+
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'post deleted';
-    $_SESSION['postId'] = ($_POST['postId']);
-    deletePost($db, (int)$_SESSION['postId']);
 
     header('Location: ../pages/user-posts.php');
 }
