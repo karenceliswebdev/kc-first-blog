@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/User.php';
+include '../Models/Post.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
