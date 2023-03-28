@@ -34,17 +34,17 @@ $post = new Post((int)$_SESSION['postId']);
     <form method="post" action="../actions/edit-post-action.php">
         <div class="newPost">
             <label for="title">Title:</label><br>
-            <input type="text" name ="title" id="title" value="<?= $post['title'];?>"/><br>
+            <input type="text" name ="title" id="title" value="<?= $post->getTitle();?>"/><br>
             <img src="../pictures/pic-default.png" alt=""><br>
             <label for="body">Content:</label><br>
-            <textarea name="body" id="body" rows="50" cols="100"><?= $post['body'];?></textarea><br>
-            <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+            <textarea name="body" id="body" rows="50" cols="100"><?= $post->getBody();?></textarea><br>
+            <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
             <button>save</button> 
         </div>
     </form>
     
     <form action="./blog-detail.php" method="post">
-        <input type="hidden" name="postId" value="<?= $post['id']; ?>"/>
+        <input type="hidden" name="postId" value="<?= $post->getId(); ?>"/>
         <button>cancel</button>
     </form>
 
