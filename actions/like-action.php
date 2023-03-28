@@ -8,9 +8,7 @@ include '../Models/Post.php';
 use Models\User;
 use Models\Post;
 
-$sessionExist = checkSessionExists($db);
-
-if($sessionExist===false) {
+if(empty($_SESSION['sessionId'])) {
     $_SESSION['feedbackColor'] = 'red';
     $_SESSION['feedback'] = 'Only logged in users can like a post';
     header('Location: ../pages/blog-detail.php');
