@@ -19,8 +19,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ./blog-detail.php');
         die;
     }
-    //postID nodig voor te zien welke post we moeten aanpassen
-    $_SESSION['postId'] = $_POST['postId'];
 }
 
 $post = getPostDetailPage($db, (int)$_SESSION['postId']);
