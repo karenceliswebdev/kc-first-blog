@@ -14,11 +14,12 @@ if(empty($_SESSION['sessionId'])) {
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
+        $_SESSION['feedback'] = 'no post selected';//
         header('Location: ../pages/blog-detail.php');
         die;
     }
 
-    $post = new Post((int)$_SESSION['postId']);
+    $post = new Post((int)$_POST['postId']);
     $user = new User();
     $user->findSession();
 
