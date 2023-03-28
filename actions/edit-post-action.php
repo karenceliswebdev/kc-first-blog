@@ -19,7 +19,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
-    //checken wel mijn post
     $post = new Post((int)$_SESSION['postId']);
     $user = new User();
     $user->findSession();
