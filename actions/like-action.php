@@ -20,21 +20,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../pages/blog-detail.php');
         die;
     }
-    
-    $_SESSION['postId'] = $_POST['postId'];
 
-    $userLikedPost = checkUserLikedPost($db, (int)$_SESSION['postId']);
+    $post = new Post((int)$_SESSION['postId']);
+    $user = new User();
+    $user->findSession();
 
-    if($userLikedPost) {
+    if($user->checkLikePost($post->getId())) {
         //bestaat -> verwijderen
-        deleteLikePost($db, (int)$_SESSION['postId']);
+        deleteLike($user->getId());
 
         header('Location: ../pages/blog-detail.php');
         die;
     }  
      
     //niet bestaat -> toevoegen
-    addLikePost($db, (int)$_SESSION['postId']);   
+    addLike($user->getId());   
 
     header('Location: ../pages/blog-detail.php');
 }
