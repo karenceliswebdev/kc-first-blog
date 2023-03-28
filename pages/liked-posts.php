@@ -6,9 +6,6 @@ include '../helpers/functions.php';
 include '../Models/User.php';
 include '../Models/Post.php';
 
-use Models\User;
-use Models\Post;
-
 if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;

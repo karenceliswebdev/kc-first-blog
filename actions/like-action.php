@@ -5,8 +5,7 @@ declare(strict_types=1);
 include '../Models/User.php';
 include '../Models/Post.php';
 
-use Models\User;
-use Models\Post;
+
 
 if(empty($_SESSION['sessionId'])) {
     $_SESSION['feedbackColor'] = 'red';

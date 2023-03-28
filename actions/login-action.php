@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 include '../Models/User.php';
 
-use Models\User;
+
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 

@@ -1,12 +1,8 @@
 <?php
 
 declare(strict_types=1);
-
 session_start();
-
 include '../Models/Post.php';
-
-use Models\Post;
 
 if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');

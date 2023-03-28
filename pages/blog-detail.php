@@ -5,9 +5,6 @@ declare(strict_types=1);
 include '../Models/User.php';
 include '../Models/Post.php';
 
-use Models\User;
-use Models\Post;
-
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['postId'] = $_POST['postId'];//
 }
