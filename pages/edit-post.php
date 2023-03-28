@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-include '../Models/User.php';
 include '../Models/Post.php';
 
-use Models\User;
 use Models\Post;
 
 if(empty($_SESSION['sessionId'])) {
@@ -22,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $post = new Post((int)$_SESSION['postId']);
-$user = new User();
+
 ?>
 <?php include "./components/head.php"?>
 
