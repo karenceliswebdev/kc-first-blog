@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+session_start();
+
 include '../Models/Post.php';
 
 use Models\Post;
@@ -9,7 +11,7 @@ use Models\Post;
 if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;
-} 
+}
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
