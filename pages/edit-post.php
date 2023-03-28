@@ -12,9 +12,12 @@ if(empty($_SESSION['sessionId'])) {
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
+        $_SESSION['feedback'] = 'no post selected';//
         header('Location: ./blog-detail.php');
         die;
     }
+
+    $_SESSION['postId'] = $_POST['postId'];
 }
 
 $post = new Post((int)$_SESSION['postId']);
