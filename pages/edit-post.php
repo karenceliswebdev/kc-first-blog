@@ -21,7 +21,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$post = getPostDetailPage($db, (int)$_SESSION['postId']);
+$post = new Post((int)$_SESSION['postId']);
+$user = new User();
 ?>
 <?php include "./components/head.php"?>
 
