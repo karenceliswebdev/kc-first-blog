@@ -9,9 +9,7 @@ include '../Models/Post.php';
 use Models\User;
 use Models\Post;
 
-$sessionExist = checkSessionExists($db);
-
-if($sessionExist===false) {
+if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;
 }
