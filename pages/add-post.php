@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
+session_start();
 
-include '../helpers/database.php';
 include '../helpers/functions.php';
 
-$sessionExist = checkSessionExists($db);
-
-if($sessionExist===false) {
+if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;
 }
