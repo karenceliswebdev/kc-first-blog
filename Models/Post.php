@@ -121,4 +121,23 @@ class Post {
     
         return count($count);
     }
+
+    function addLike(int $userId): void {
+    
+        $res = DB::connect()->prepare('INSERT INTO likes SET user_id = :userId, post_id = :postId');
+        $res->bindParam(':userId', $userId);
+        $res->bindParam(':postId', $this->id);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+    
+    }
+
+    public function deleteLike(int $userId): void {
+        
+        $res = DB::connect()->prepare('DELETE FROM likes WHERE user_id = :userId AND post_id = :postId');
+        $res->bindParam(':userId', $userId);
+        $res->bindParam(':postId', $this->id);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+    }
 }
