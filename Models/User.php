@@ -164,7 +164,6 @@ class User {
             return false;
             die;
         }
-        $this->findSession();
 
         $res = DB::connect()->prepare('SELECT * FROM likes WHERE user_id = :userId, post_id = :postId');
         $res->bindParam(':userId', $user->id);
