@@ -1,35 +1,37 @@
 <?php
 declare(strict_types=1);
-namespace Models;
+Namespace Models;
 use PDO;
+
 session_start();
 
 class DB {
 
-    private $host_name;
-    private $db_name;
-    private $username;
-    private $password;
-    private $conn;
+    private static $host_name = 'localhost';
+    private static $db_name = 'first_blog_kc';
+    private static $username = 'root';
+    private static $password = 'root';//
 
-    protected function connect(): object
+    private static $conn;
+
+    public static function connect(): object//
     {
-        $this->host_name = 'localhost';
-        $this->db_name = 'first_blog_kc';
-        $this->username = 'root';
-        $this->password = 'root';
-
-        if(!($this->conn)) {
-
+        if(!self::$conn)
+        {
             try {
-                $this->conn = new PDO("mysql:host=" .$this->host_name. ";dbname=" .$this->db_name. ";", $this->username, $this->password);
-                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (Exception $exception) {
+            
+                self::$conn = new PDO("mysql:host=" .self::$host_name. ";dbname=" .self::$db_name. ";", self::$username, self::$password);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } 
+            catch (Exception $exception) {
+                
                 echo $exception->getMessage();
-            }
+            } 
         }
-        return $this->conn;
-    }       
+
+        return self::$conn;
+    } 
+
 }
 
 
