@@ -63,7 +63,7 @@ class Post {
         return $this->id;
     }
 
-    private function delete(): void {
+    public function delete(): void {
         
         $now = date('Y-m-d H:i:s');
 
