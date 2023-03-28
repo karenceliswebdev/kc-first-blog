@@ -1,8 +1,10 @@
 <?php
+Namespace Models;
+include '../Models/DB.php';
+use PDO;
+use Models\DB;
 
-include_once('../Models/DB.php');
-
-class User extends Models\DB {
+class User {
 
     private int $id;
     private string $email;
@@ -18,20 +20,15 @@ class User extends Models\DB {
             $this->find($id);
         }
 
-        if(!empty($_SESSION['sessionId'])) {//
-
-            $this->sessionId = $_SESSION['sessionId'];
-            $this->findSession();
-        }
     }
 
     public function find(int $id): User {  
     
-        $res = $this->connect()->prepare('SELECT * FROM users WHERE id = :id');
+        $res = DB::connect()->prepare('SELECT * FROM users WHERE id = :id');
         $res->bindParam('id', $id);
         $res->execute();
 
-        $user = $res->fetchObject('User');//steek het erin als object
+        $user = $res->fetchObject('Models\User');//steek het erin als object
 
         if(!empty($user))
         {
@@ -45,12 +42,12 @@ class User extends Models\DB {
     }
 
     public function findSession(): User {  //
-    
-        $res = $this->connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
-        $res->bindParam(':sessionId', $this->sessionId);
+
+        $res = DB::connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
+        $res->bindParam(':sessionId', $_SESSION['sessionId']);
         $res->execute();
 
-        $user = $res->fetchObject('User');
+        $user = $res->fetchObject('Models\User');
 
         if(!empty($user))
         {
@@ -76,12 +73,12 @@ class User extends Models\DB {
 
     private function add(): int
     {
-        $res = $this->connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
+        $res = DB::connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
         $res->execute();
 
-        $this->id = $this->connect()->lastInsertId(); 
+        $this->id = DB::connect()->lastInsertId(); 
 
         return $this->id; //heeft dit eig nut dit stuk zonder this in checkemail werkt het ni
     }
@@ -96,7 +93,7 @@ class User extends Models\DB {
         $_SESSION['sessionId'] = uniqid(); 
         $this->sessionId =  $_SESSION['sessionId'];
 
-        $res = $this->connect()->prepare('UPDATE users SET email = :email, hash = :hash, session_id = :sessionId WHERE id = :id');
+        $res = DB::connect()->prepare('UPDATE users SET email = :email, hash = :hash, session_id = :sessionId WHERE id = :id');
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
         $res->bindParam(':sessionId', $this->sessionId);
@@ -124,13 +121,13 @@ class User extends Models\DB {
     }
 
     function checkEmailExist(): bool {
-
-        $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
+        
+        $res = DB::connect()->prepare('SELECT * FROM users WHERE email = :email');
         $res->bindParam(':email', $this->email); //of $this er nog voor?
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('User'); //verandert ervoor Models/User
+        $user = $res->fetchObject('Models\User'); //verandert ervoor Models/User
 
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
@@ -145,12 +142,12 @@ class User extends Models\DB {
 
     function checkPasswordCorrect(): bool {
     
-        $res = $this->connect()->prepare('SELECT * FROM users WHERE email = :email');
+        $res = DB::connect()->prepare('SELECT * FROM users WHERE email = :email');
         $res->bindParam(':email', $this->email);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('User');
+        $user = $res->fetchObject('Models\User');
     
         if(!password_verify($this->password, $user->hash)) {
             
@@ -161,21 +158,31 @@ class User extends Models\DB {
         return true;
     }
 
-    function checkLikePost(int $postId = null): array {
+    function checkLikePost(int $postId = null): bool {
 
-        $res = $this->connect()->prepare('SELECT * FROM likes WHERE user_id = :userId');
+        if(empty($_SESSION['sessionId'])) {
+            return false;
+            die;
+        }
+        $this->findSession();
+
+        $res = DB::connect()->prepare('SELECT * FROM likes WHERE user_id = :userId, post_id = :postId');
         $res->bindParam(':userId', $user->id);
+        $res->bindParam(':postId', $postID);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
 
-        $likedPosts = $res->fetchAll();
-    
-        if(in_array($postId, $likedPosts)) {
+        if($res->fetchAll()) {
 
             return true;
             die;
         }
     
         return false;
-    }  
+    } 
+    
+    public function getId(): int{
+
+        return $this->id;
+    }
 }
