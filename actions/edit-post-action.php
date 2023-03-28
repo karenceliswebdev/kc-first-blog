@@ -23,6 +23,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new User();
     $user->findSession();
 
+    if($user->getId() !== $post->getUserId()) {
+        $_SESSION['feedback'] = "You can only edit your own post";
+        header('Location: ../pages/index.php');
+        die;
+    }
+
     updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
 
     $_SESSION['feedbackColor'] = 'green';
