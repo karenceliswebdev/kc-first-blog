@@ -158,20 +158,22 @@ class User {
         return true;
     }
 
-    function checkLikePost(int $postId = null): bool {
+    function checkLikePost(int $postId): bool {
 
         if(empty($_SESSION['sessionId'])) {
             return false;
             die;
         }
 
-        $res = DB::connect()->prepare('SELECT * FROM likes WHERE user_id = :userId, post_id = :postId');
-        $res->bindParam(':userId', $user->id);
-        $res->bindParam(':postId', $postID);
+        $res = DB::connect()->prepare('SELECT * FROM likes WHERE user_id = :userId AND post_id = :postId');
+        $res->bindParam(':userId', $this->id);
+        $res->bindParam(':postId', $postId);
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
 
-        if($res->fetchAll()) {
+        $likes = $res->fetch();
+
+        if(!empty($likes)) {
 
             return true;
             die;
