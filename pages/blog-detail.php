@@ -21,7 +21,7 @@ $user->findSession();
     
     <?php include "./components/nav.php"?>
 
-    <?php if(isset($_SESSION['sessionId'])) : ?>
+    <?php if(!empty($_SESSION['sessionId'])) : ?>
         <?php if($post->getUserId()===$user->getId()) : ?>
             <!--edit possibility-->
             <form action="./edit-post.php" method="post">
