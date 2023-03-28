@@ -6,6 +6,12 @@ include '../Models/User.php';
 include '../Models/Post.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    if(empty($_POST['postId'])) {
+        $_SESSION['feedback'] = 'no post selected';//
+        header('Location: ./index.php');
+        die;
+    }
     $_SESSION['postId'] = $_POST['postId'];//
 }
 
