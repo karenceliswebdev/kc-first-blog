@@ -91,23 +91,34 @@ class Post {
         return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post"); //uitzoeken
     }
 
-    public function getId(): int{
+    public function getId(): int {
 
         return $this->id;
     }
 
-    public function getUserId(): int{
+    public function getUserId(): int {
 
         return $this->userId;
     }
 
-    public function getTitle(): string{
+    public function getTitle(): string {
 
         return $this->title;
     }
 
-    public function getBody(): string{
+    public function getBody(): string {
 
         return $this->body;
+    }
+
+    public function findLikes(): int {
+        
+        $res = DB::connect()->prepare('SELECT id FROM likes WHERE post_id = :postId');
+        $res->bindParam(':postId', $this->id);
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+        $count = $res->fetchAll();
+    
+        return count($count);
     }
 }
