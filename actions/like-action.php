@@ -1,6 +1,12 @@
 <?php
 
-include '../helpers/database.php';
+declare(strict_types=1);
+
+include '../Models/User.php';
+include '../Models/Post.php';
+
+use Models\User;
+use Models\Post;
 
 $sessionExist = checkSessionExists($db);
 
