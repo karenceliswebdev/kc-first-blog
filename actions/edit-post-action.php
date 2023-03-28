@@ -29,7 +29,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
 
-    updatePost($db, $_POST['title'], $_POST['body'], (int)$_SESSION['postId']);
+    $post->setTitle($_POST['title']);
+    $post->setBody($_POST['body']);
+    $post->save();
 
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'post edited';
