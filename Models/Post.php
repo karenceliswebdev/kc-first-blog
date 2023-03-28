@@ -85,6 +85,23 @@ class Post {
         return $this->id;
     }
 
+    function setUser(int $userId): void {
+        
+        $this->userId = $userId;
+    }
+
+    function setTitle(string $title): void {
+        
+        $title = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $this->title = $title;
+    }
+
+    function setBody(string $body): void {
+        
+        $body = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $this->body = $body;
+    }
+
     public function get(): array
     {
         $res = DB::connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
