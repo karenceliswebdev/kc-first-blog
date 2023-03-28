@@ -92,13 +92,13 @@ class Post {
 
     function setTitle(string $title): void {
         
-        $title = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $this->title = $title;
     }
 
     function setBody(string $body): void {
         
-        $body = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+        $body = htmlspecialchars($body, ENT_QUOTES, 'UTF-8');
         $this->body = $body;
     }
 
