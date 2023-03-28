@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/User.php';
+include '../Models/Post.php';
 
-$sessionExist = checkSessionExists($db);
+use Models\User;
+use Models\Post;
 
-if($sessionExist===false) {
+if(empty($_SESSION['sessionId'])) {
     header('Location: ./login.php');
     die;
-}
+} 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
