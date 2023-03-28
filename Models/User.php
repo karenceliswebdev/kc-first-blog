@@ -80,7 +80,7 @@ class User {
         return $this->id;
     }
 
-    function update(): int {
+    private function update(): int {
 
         if(empty($this->id)) {
 

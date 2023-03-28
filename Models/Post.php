@@ -71,7 +71,7 @@ class Post {
         $res->execute();
     }
 
-    function update(): int {
+    private function update(): int {
 
         if(empty($this->id)) {
 
