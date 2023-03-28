@@ -105,7 +105,15 @@ class Post {
     public function get(): array
     {
         $res = DB::connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
-        return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post"); //uitzoeken
+        return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post");
+    }
+
+    public function getPostsUser(int $userId): array {
+
+        $res = DB::connect()->prepare('SELECT * FROM posts WHERE deleted_at IS NULL AND user_id = :userId ORDER BY created_at DESC;');
+        $res->bindParam(':userId', $userId);
+        $res->execute();
+        return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post"); 
     }
 
     public function getId(): int {
