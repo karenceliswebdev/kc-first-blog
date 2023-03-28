@@ -154,7 +154,7 @@ class Post {
         return count($count);
     }
 
-    function addLike(int $userId): void {
+    public function addLike(int $userId): void {
     
         $res = DB::connect()->prepare('INSERT INTO likes SET user_id = :userId, post_id = :postId');
         $res->bindParam(':userId', $userId);
