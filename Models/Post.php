@@ -55,7 +55,7 @@ class Post {
         //nog checken ik wel owner van post
 
         $res = DB::connect()->prepare('INSERT INTO posts SET user_id = :userId, title = :title, body = :body, created_at= :now');
-        $res->bindParam(':userd', $this->userId);
+        $res->bindParam(':userId', $this->userId);
         $res->bindParam(':title', $this->title);
         $res->bindParam(':body', $this->body);
         $res->bindParam(':now', $now);
