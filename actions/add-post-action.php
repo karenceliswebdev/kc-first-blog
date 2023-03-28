@@ -28,6 +28,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
+    $user = new User();
+    $user->findSession();
+
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'new post added';
     addNewPost($db, $_POST['title'], $_POST['body']);
