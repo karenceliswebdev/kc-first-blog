@@ -6,6 +6,7 @@ include '../Models/User.php';
 include '../Models/Post.php';
 
 if(empty($_SESSION['sessionId'])) {
+
     $_SESSION['feedbackColor'] = 'red';
     $_SESSION['feedback'] = 'Only logged in users can like a post';
     header('Location: ../pages/blog-detail.php');
@@ -14,7 +15,7 @@ if(empty($_SESSION['sessionId'])) {
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
-        $_SESSION['feedback'] = 'no post selected';//
+        $_SESSION['feedback'] = 'no post selected';
         header('Location: ../pages/blog-detail.php');
         die;
     }

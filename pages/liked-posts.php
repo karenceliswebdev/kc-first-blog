@@ -7,6 +7,7 @@ include '../Models/User.php';
 include '../Models/Post.php';
 
 if(empty($_SESSION['sessionId'])) {
+    
     header('Location: ./login.php');
     die;
 }

@@ -45,11 +45,9 @@ class Post {
         return $this->add();
     }
 
-    private function add(): int
-    {
-        $now = date('Y-m-d H:i:s');
+    private function add(): int {
 
-        //nog checken ik wel owner van post
+        $now = date('Y-m-d H:i:s');
 
         $res = DB::connect()->prepare('INSERT INTO posts SET user_id = :userId, title = :title, body = :body, created_at= :now');
         $res->bindParam(':userId', $this->userId);
@@ -73,7 +71,7 @@ class Post {
         $res->execute();
     }
 
-    function update(): int  {
+    function update(): int {
 
         if(empty($this->id)) {
 
@@ -112,6 +110,7 @@ class Post {
     public function get(): array
     {
         $res = DB::connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
+        
         return $res->fetchAll(PDO::FETCH_CLASS, "Post");
     }
 
@@ -120,6 +119,7 @@ class Post {
         $res = DB::connect()->prepare('SELECT * FROM posts WHERE deleted_at IS NULL AND user_id = :userId ORDER BY created_at DESC;');
         $res->bindParam(':userId', $userId);
         $res->execute();
+        
         return $res->fetchAll(PDO::FETCH_CLASS, "Post"); 
     }
 

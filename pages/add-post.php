@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
+
 session_start();
 
 include '../helpers/functions.php';
 
 if(empty($_SESSION['sessionId'])) {
+    
     header('Location: ./login.php');
     die;
 }

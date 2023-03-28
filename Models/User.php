@@ -9,8 +9,7 @@ class User {
     private string $email;
     private string $hash;
     private string $sessionId;
-
-    private string $password;
+     private string $password;
 
     public function __construct(int $id = null) {
 
@@ -27,7 +26,7 @@ class User {
         $res->bindParam('id', $id);
         $res->execute();
 
-        $user = $res->fetchObject('User');//steek het erin als object
+        $user = $res->fetchObject('User');
 
         if(!empty($user))
         {
@@ -40,7 +39,7 @@ class User {
         return $this;
     }
 
-    public function findSession(): User {  //
+    public function findSession(): User { 
 
         $res = DB::connect()->prepare('SELECT * FROM users WHERE session_id = :sessionId');
         $res->bindParam(':sessionId', $_SESSION['sessionId']);
@@ -59,9 +58,8 @@ class User {
         return $this;
     }
 
-    public function save(): int { //id teruggeven van die save
+    public function save(): int { 
 
-        //heeft object id update, geen id ne nieuwe
         if(!empty($this->id)) {
 
             return $this->update();
@@ -70,8 +68,8 @@ class User {
         return $this->add();
     }
 
-    private function add(): int
-    {
+    private function add(): int {
+
         $res = DB::connect()->prepare('INSERT INTO users SET email = :email, hash = :hash');
         $res->bindParam(':email', $this->email);
         $res->bindParam(':hash', $this->hash);
@@ -79,10 +77,10 @@ class User {
 
         $this->id = DB::connect()->lastInsertId(); 
 
-        return $this->id; //heeft dit eig nut dit stuk zonder this in checkemail werkt het ni
+        return $this->id;
     }
 
-    function update(): int  {
+    function update(): int {
 
         if(empty($this->id)) {
 
@@ -102,36 +100,33 @@ class User {
         return $this->id;
     }
 
-    //sign up en login
-
     function setEmail(string $email): void {
         
         $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
         $this->email = $email;
     }
 
-    function setPassword(string $password): void { //misschien in 1 steken
+    function setPassword(string $password): void { 
         
         $password = htmlspecialchars($password, ENT_QUOTES, 'UTF-8');
         $this->password = $password;
 
-        $hash = password_hash($this->password, PASSWORD_DEFAULT);//
+        $hash = password_hash($this->password, PASSWORD_DEFAULT);
         $this->hash = $hash;
     }
 
     function checkEmailExist(): bool {
         
         $res = DB::connect()->prepare('SELECT * FROM users WHERE email = :email');
-        $res->bindParam(':email', $this->email); //of $this er nog voor?
+        $res->bindParam(':email', $this->email); 
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('User'); //verandert ervoor Models/User
+        $user = $res->fetchObject('User'); 
 
-        //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
 
-            $this->id = $user->id;//belangrijk voor login
+            $this->id = $user->id;
             return true;
             die;
         }
@@ -181,7 +176,7 @@ class User {
         return false;
     } 
     
-    public function getId(): int{
+    public function getId(): int {
 
         return $this->id;
     }

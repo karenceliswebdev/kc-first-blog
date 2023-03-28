@@ -6,11 +6,10 @@ class DB {
     private static $host_name = 'localhost';
     private static $db_name = 'first_blog_kc';
     private static $username = 'root';
-    private static $password = 'root';//
-
+    private static $password = 'root';
     private static $conn;
 
-    public static function connect(): object//
+    public static function connect(): object
     {
         if(!self::$conn)
         {
@@ -27,7 +26,6 @@ class DB {
 
         return self::$conn;
     } 
-
 }
 
 

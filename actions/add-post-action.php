@@ -6,6 +6,7 @@ include '../Models/User.php';
 include '../Models/Post.php';
 
 if(empty($_SESSION['sessionId'])) {
+
     $_SESSION['feedbackColor'] = 'red';
     $_SESSION['feedback'] = 'Only logged in users can add a post';
     header('Location: ../pages/index.php');
@@ -14,12 +15,14 @@ if(empty($_SESSION['sessionId'])) {
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['title'])) {
+
         $_SESSION['feedback'] = 'Please fill in all input fields';
         header('Location: ../pages/add-post.php');
         die;
     }
 
     if(empty($_POST['body'])) {
+
         $_SESSION['feedback'] = 'Please fill in all input fields';
         header('Location: ../pages/add-post.php');
         die;

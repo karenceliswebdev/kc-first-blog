@@ -7,6 +7,7 @@ include '../Models/User.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['email'])) {
+
         $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
@@ -14,6 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if(empty($_POST['password'])) {
+
         $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');
@@ -26,6 +28,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $emailExists = $user->checkEmailExist();
 
     if($emailExists===false) {
+
         $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'User does not exist, got to sign up';
         header('Location: ../pages/login.php');
@@ -35,6 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passwordCorrect = $user->checkPasswordCorrect();
 
     if($passwordCorrect===false) {
+        
         $_SESSION['feedbackColor'] = 'red';
         $_SESSION['feedback'] = 'incorrect login details';
         header('Location: ../pages/login.php');

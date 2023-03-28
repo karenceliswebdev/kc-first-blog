@@ -5,6 +5,7 @@ session_start();
 include '../Models/Post.php';
 
 if(empty($_SESSION['sessionId'])) {
+    
     header('Location: ./login.php');
     die;
 }
@@ -12,7 +13,8 @@ if(empty($_SESSION['sessionId'])) {
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['postId'])) {
-        $_SESSION['feedback'] = 'no post selected';//
+        
+        $_SESSION['feedback'] = 'no post selected';
         header('Location: ./blog-detail.php');
         die;
     }
@@ -21,7 +23,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $post = new Post((int)$_SESSION['postId']);
-
 ?>
 <?php include "./components/head.php"?>
 
