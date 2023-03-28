@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-include '../helpers/database.php';
+include '../Models/User.php';
+include '../Models/Post.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -18,6 +19,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         die;
     }
     
+    //checken wel mijn post
+
+
     $_SESSION['feedbackColor'] = 'green';
     $_SESSION['feedback'] = 'post edited';
     //postID nodig voor te zien welke post we moeten aanpassen
