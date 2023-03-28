@@ -1,8 +1,5 @@
 <?php
-
-Namespace Models;
-use PDO;
-use Models\DB;
+include_once '../Models/DB.php';
 
 class Post {
 
@@ -25,7 +22,7 @@ class Post {
         $res->bindParam('id', $id);
         $res->execute();
 
-        $post = $res->fetchObject('Models\Post');
+        $post = $res->fetchObject('Post');
 
         if(!empty($post))
         {
@@ -105,7 +102,7 @@ class Post {
     public function get(): array
     {
         $res = DB::connect()->query('SELECT * FROM posts WHERE deleted_at IS NULL ORDER BY created_at DESC;');
-        return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post");
+        return $res->fetchAll(PDO::FETCH_CLASS, "Post");
     }
 
     public function getPostsUser(int $userId): array {
@@ -113,7 +110,7 @@ class Post {
         $res = DB::connect()->prepare('SELECT * FROM posts WHERE deleted_at IS NULL AND user_id = :userId ORDER BY created_at DESC;');
         $res->bindParam(':userId', $userId);
         $res->execute();
-        return $res->fetchAll(PDO::FETCH_CLASS, "Models\Post"); 
+        return $res->fetchAll(PDO::FETCH_CLASS, "Post"); 
     }
 
     public function getId(): int {

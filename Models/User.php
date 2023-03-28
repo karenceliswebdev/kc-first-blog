@@ -1,8 +1,7 @@
 <?php
-Namespace Models;
-include '../Models/DB.php';//
-use PDO;
-use Models\DB;
+include_once '../Models/DB.php';
+
+session_start();
 
 class User {
 
@@ -28,7 +27,7 @@ class User {
         $res->bindParam('id', $id);
         $res->execute();
 
-        $user = $res->fetchObject('Models\User');//steek het erin als object
+        $user = $res->fetchObject('User');//steek het erin als object
 
         if(!empty($user))
         {
@@ -47,7 +46,7 @@ class User {
         $res->bindParam(':sessionId', $_SESSION['sessionId']);
         $res->execute();
 
-        $user = $res->fetchObject('Models\User');
+        $user = $res->fetchObject('User');
 
         if(!empty($user))
         {
@@ -127,7 +126,7 @@ class User {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('Models\User'); //verandert ervoor Models/User
+        $user = $res->fetchObject('User'); //verandert ervoor Models/User
 
         //anders kreeg ik steeds: error moet een array zijn maar krijg bool terug;
         if($user) {
@@ -147,7 +146,7 @@ class User {
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
     
-        $user = $res->fetchObject('Models\User');
+        $user = $res->fetchObject('User');
     
         if(!password_verify($this->password, $user->hash)) {
             

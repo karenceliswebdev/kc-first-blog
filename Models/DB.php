@@ -1,9 +1,5 @@
 <?php
 declare(strict_types=1);
-Namespace Models;
-use PDO;
-
-session_start();
 
 class DB {
 
