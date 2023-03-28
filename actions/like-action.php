@@ -27,14 +27,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if($user->checkLikePost($post->getId())) {
         //bestaat -> verwijderen
-        deleteLike($user->getId());
+        $post->deleteLike($user->getId());
 
         header('Location: ../pages/blog-detail.php');
         die;
     }  
      
     //niet bestaat -> toevoegen
-    addLike($user->getId());   
+    $post->addLike($user->getId());   
 
     header('Location: ../pages/blog-detail.php');
 }
