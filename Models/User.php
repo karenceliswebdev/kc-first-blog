@@ -1,6 +1,6 @@
 <?php
 Namespace Models;
-include '../Models/DB.php';
+include '../Models/DB.php';//
 use PDO;
 use Models\DB;
 
@@ -185,16 +185,6 @@ class User {
     public function getId(): int{
 
         return $this->id;
-    }
-
-    public function getPosts(): array{
-
-        $res = DB::connect()->prepare('SELECT * FROM posts WHERE user_id = :userId AND deleted_at IS NULL ORDER BY created_at DESC;');
-        $res->bindParam(':userId', $this->id);
-        $res->setFetchMode(PDO::FETCH_ASSOC);
-        $res->execute();
-
-        return $res->fetchAll(PDO::FETCH_OBJ);
     }
 
 }
