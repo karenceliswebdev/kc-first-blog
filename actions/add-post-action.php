@@ -8,6 +8,12 @@ include '../Models/Post.php';
 use Models\User;
 use Models\Post;
 
+if(empty($_SESSION['sessionId'])) {
+    $_SESSION['feedbackColor'] = 'red';
+    $_SESSION['feedback'] = 'Only logged in users can add a post';
+    header('Location: ../pages/index.php');
+}
+
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(empty($_POST['title'])) {
