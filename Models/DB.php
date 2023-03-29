@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class DB {
 
-    private static $host_name = 'localhost';
+    private static $host_name = '127.0.0.1';
     private static $db_name = 'first_blog_kc';
     private static $username = 'root';
     private static $password = 'root';
